@@ -2,7 +2,7 @@
     "port": 8000,
     "injectChanges": true,
     "server": {
-        "baseDir": "./test",
+        "baseDir": "./docs",
         "routes": {
             "/bower_components": "bower_components",
             "/src": "src"

@@ -1,0 +1,24 @@
+{
+  "name": "mmangular",
+  "description": "Componentes material design para angular y bootstrap",
+  "main": "index.js",
+  "authors": [
+    "Walter Corrales"
+  ],
+  "license": "ISC",
+  "keywords": [
+    "angular",
+    "material"
+  ],
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "^3.3.7"
+  }
+}

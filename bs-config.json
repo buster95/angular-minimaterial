@@ -1,0 +1,11 @@
+{
+    "port": 8000,
+    "injectChanges": true,
+    "server": {
+        "baseDir": "./test",
+        "routes": {
+            "/bower_components": "bower_components",
+            "/src": "src"
+        }
+    }
+}

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Test mmAngular</title>
+
+    <link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../src/mmAngular.min.css">
+</head>
+
+<body ng-app="mmAngualrTest">
+    <div class="container">
+        <div class="panel">
+            <div class="panel-heading">
+                <h3 style="text-align: center;">
+                    {{mensaje}}
+                    <br>
+                    <small>Autor: Walter Corrales</small>
+                </h3>
+            </div>
+
+            <div class="panel-body">
+                <h3>&lt;mm-loader> &lt;mm-loader></h3>
+                <mm-loader ng-model="working" stroke-width="5"></mm-loader>
+
+                <h3>&lt;mm-input> &lt;mm-input></h3>
+                <mm-input ng-model="input1" placeholder="Ingresa un texto"></mm-input>
+                <mm-input ng-model="input2" placeholder="Ingresa un texto"></mm-input>
+                <p> Input1 Dice: {{input1}} </p>
+
+                <h3>&lt;mm-button> &lt;mm-button></h3>
+                <mm-button ng-click="clickMe()" class="btn-danger">Click Me!</mm-button>
+                <mm-button ng-click="clickMe2()" class="btn-primary">Click Me!</mm-button>
+
+                <h3>&lt;mm-checkbox> &lt;mm-checkbox></h3>
+                <mm-checkbox ng-model="ckValue" label="My Material Checkbox"></mm-checkbox>
+            </div>
+        </div>
+    </div>
+
+    <script src="../bower_components/angular/angular.min.js"></script>
+    <script src="../src/mmAngular.min.js"></script>
+
+    <script>
+        var app = angular.module('mmAngualrTest', ['mmAngular']);
+        app.run(['$rootScope', function ($rootScope) {
+            $rootScope.mensaje = "Hola Mundo MyMaterial";
+            $rootScope.working = true;
+            // $rootScope.input1 = 'walter corrales';
+            $rootScope.clickMe = function () {
+                $rootScope.working = !$rootScope.working;
+                // alert('Hola Mundo Click Me!');
+            };
+
+            $rootScope.clickMe2 = function () {
+                $rootScope.ckValue = !$rootScope.ckValue;
+            };
+        }]);
+    </script>
+</body>
+
+</html>

@@ -25,7 +25,8 @@ gulp.task('js_task', function () {
         .pipe(gulp.dest('src/'))
         .pipe(jsmin())
         .pipe(concat('angular-minimaterial.min.js'))
-        .pipe(gulp.dest('src/'));
+        .pipe(gulp.dest('src/'))
+        .pipe(gulp.dest('docs/'));
 });
 
 gulp.task('css_task', function () {
@@ -37,5 +38,6 @@ gulp.task('css_task', function () {
         .pipe(gulp.dest('src/'))
         .pipe(cssmin())
         .pipe(concat('angular-minimaterial.min.css'))
-        .pipe(gulp.dest('src/'));
+        .pipe(gulp.dest('src/'))
+        .pipe(gulp.dest('docs/'));
 });

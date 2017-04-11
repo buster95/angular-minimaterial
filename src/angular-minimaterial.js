@@ -1,4 +1,4 @@
-var mymaterialModule = angular.module('mmAngular', []);
+var mymaterialModule = angular.module('ngMiniMaterial', []);
 mymaterialModule.directive('mmButton', ['$compile', function ($compile) {
     return {
         terminal: true, // si la directiva tiene internamente otras directivas

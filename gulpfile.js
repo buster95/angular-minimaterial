@@ -6,11 +6,12 @@ var plumber = require('gulp-plumber');
 var less = require('gulp-less');
 
 var dirjs = [
-    "src/componentes/angular-mymaterial.js",
-    "src/componentes/angular-mymaterial-*.js"
+    "src/componentes/minimaterial.js",
+    "src/componentes/minimaterial-*.js"
 ];
 var cssdir = [
-    'src/styles/*.less'
+    'src/styles/minimaterial.less',
+    'src/styles/minimaterial-*.less'
 ];
 gulp.task('default', function () {
     gulp.watch(dirjs, ['js_task']);
@@ -20,20 +21,21 @@ gulp.task('default', function () {
 gulp.task('js_task', function () {
     gulp.src(dirjs)
         .pipe(plumber())
-        .pipe(concat('mmAngular.js'))
+        .pipe(concat('angular-minimaterial.js'))
         .pipe(gulp.dest('src/'))
         .pipe(jsmin())
-        .pipe(concat('mmAngular.min.js'))
+        .pipe(concat('angular-minimaterial.min.js'))
         .pipe(gulp.dest('src/'));
 });
 
 gulp.task('css_task', function () {
     gulp.src(cssdir)
         .pipe(plumber())
+        .pipe(concat('angular-minimaterial.less'))
         .pipe(less())
-        .pipe(concat('mmAngular.css'))
+        .pipe(concat('angular-minimaterial.css'))
         .pipe(gulp.dest('src/'))
         .pipe(cssmin())
-        .pipe(concat('mmAngular.min.css'))
+        .pipe(concat('angular-minimaterial.min.css'))
         .pipe(gulp.dest('src/'));
 });

@@ -1,0 +1,51 @@
+// -------------------------------------------------------------
+//          mymaterial  =>  mmCheckbox
+// -------------------------------------------------------------
+.checkbox {
+    cursor: pointer;
+
+    input[type="checkbox"] {
+        display: none;
+    }
+
+    label {
+        margin-left: 5px;
+    }
+
+    & label:after {
+        content: '';
+        position: absolute;
+        border-radius: 2px;
+        border: 2px solid #5a5a5a;
+        width: 18px;
+        height: 18px;
+        left: 0;
+        transition: border .25s, background-color .25s, width .20s .1s, height .20s .1s, top .20s .1s, left .20s .1s;
+    }
+
+    input[type="checkbox"]:checked + label:before {
+        content: '';
+        position: absolute;
+        top: 1px;
+        left: 0;
+        width: 8px;
+        height: 13px;
+        border-top: 2px solid transparent;
+        border-left: 2px solid transparent;
+        border-right: 2px solid white;
+        border-bottom: 2px solid white;
+        -webkit-transform: rotateZ(37deg);
+        transform: rotateZ(37deg);
+        -webkit-transform-origin: 100% 100%;
+        transform-origin: 100% 100%;
+        -webkit-backface-visibility: hidden;
+        backface-visibility: hidden;
+        transition: border .25s, background-color .25s, width .20s .1s, height .20s .1s, top .20s .1s, left .20s .1s;
+        z-index: 10;
+    }
+
+    input[type="checkbox"]:checked + label:after {
+        background: @color_primary;
+        border: 2px solid @color_primary;
+    }
+}

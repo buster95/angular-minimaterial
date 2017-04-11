@@ -1,4 +1,4 @@
-mymaterialModule.directive('mmLoader', ['$compile', function ($compile) {
+miniapp.directive('mmLoader', ['$compile', function ($compile) {
     return {
         terminal: true,
         scope: false,

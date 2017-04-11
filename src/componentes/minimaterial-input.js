@@ -1,4 +1,4 @@
-mymaterialModule.directive('mmInput', ['$compile', function ($compile) {
+miniapp.directive('mmInput', ['$compile', function ($compile) {
     return {
         terminal: true,
         scope: false,

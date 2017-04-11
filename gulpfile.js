@@ -4,6 +4,7 @@ var cssmin = require('gulp-clean-css');
 var concat = require('gulp-concat');
 var plumber = require('gulp-plumber');
 var less = require('gulp-less');
+var jsx = require('gulp-angular-jsx');
 
 var dirjs = [
     "src/componentes/minimaterial.js",

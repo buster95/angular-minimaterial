@@ -1,5 +1,16 @@
-var mymaterialModule = angular.module('ngMiniMaterial', []);
-mymaterialModule.directive('mmButton', ['$compile', function ($compile) {
+var miniapp = angular.module('ngMiniMaterial', []);
+
+
+miniapp.service('$ngMiniMaterialProvider', [function () {
+    var colorPrimary = "";
+    var colorPrimaryHover = "";
+
+    return {
+        Primary: function (color) {
+        }
+    }
+}]);
+miniapp.directive('mmButton', ['$compile', function ($compile) {
     return {
         terminal: true, // si la directiva tiene internamente otras directivas
         scope: false, // utilizar el scope actual
@@ -9,7 +20,7 @@ mymaterialModule.directive('mmButton', ['$compile', function ($compile) {
         restrict: 'E' // solo elemento
     }
 }]);
-mymaterialModule.directive('mmCheckbox', ['$compile', function ($compile) {
+miniapp.directive('mmCheckbox', ['$compile', function ($compile) {
     return {
         terminal: true,
         scope: false,
@@ -36,8 +47,7 @@ mymaterialModule.directive('mmCheckbox', ['$compile', function ($compile) {
         }
     }
 }]);
-
-mymaterialModule.directive('mmInput', ['$compile', function ($compile) {
+miniapp.directive('mmInput', ['$compile', function ($compile) {
     return {
         terminal: true,
         scope: false,
@@ -70,7 +80,7 @@ mymaterialModule.directive('mmInput', ['$compile', function ($compile) {
         }
     }
 }]);
-mymaterialModule.directive('mmLoader', ['$compile', function ($compile) {
+miniapp.directive('mmLoader', ['$compile', function ($compile) {
     return {
         terminal: true,
         scope: false,
@@ -107,4 +117,38 @@ mymaterialModule.directive('mmLoader', ['$compile', function ($compile) {
             };
         }
     };
+}]);
+
+miniapp.directive('mmSwitch', ['$compile', function ($compile) {
+    return {
+        terminal: true,
+        scope: false,
+        restrict: 'E',
+        // require: '?ngModel',
+        compile: function (tElement, tAttrs) {
+            return function Linked(scope, elemento, attrs) {
+                var estilo = attrs.style !== undefined ? attrs.style : '';
+
+                var modelo = attrs.ngModel;
+                if (modelo === null || modelo === undefined || modelo === '') {
+                    throw "mm-switch Requiere obligatoriamente ngModel";
+                }
+
+                var label = attrs.label !== undefined ? attrs.label : '';
+
+                var template = angular.element(
+                    '<div class="mmswitch-container">' +
+                    '<click style="cursor:pointer;" ng-click="' + modelo + '=!' + modelo + '">' + label + '</click>' +
+                    '<div class="mmswitch" >' +
+                    '<input id="sw_' + modelo + '" ng-model="' + modelo + '" type="checkbox" />' +
+                    '<label for="sw_' + modelo + '" class="label-primary"></label>' +
+                    '</div >' +
+                    '</div >'
+                );
+
+                $compile(template)(scope);
+                elemento.replaceWith(template);
+            }
+        }
+    }
 }]);

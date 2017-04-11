@@ -5,10 +5,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Test mmAngular</title>
+    <title>Example MiniMaterial</title>
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
     <link rel="stylesheet" href="angular-minimaterial.min.css">
+
+    <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
 </head>
 
 <body ng-app="mmAngualrTest">
@@ -32,11 +35,14 @@
                 <p> Input1 Dice: {{input1}} </p>
 
                 <h3>&lt;mm-button> &lt;mm-button></h3>
-                <mm-button ng-click="clickMe()" class="btn-danger">Click Me!</mm-button>
+                <mm-button ng-click="clickMe()" class="btn-danger">Activity Indicator</mm-button>
                 <mm-button ng-click="clickMe2()" class="btn-primary">Click Me!</mm-button>
 
                 <h3>&lt;mm-checkbox> &lt;mm-checkbox></h3>
-                <mm-checkbox ng-model="ckValue" label="My Material Checkbox"></mm-checkbox>
+                <mm-checkbox ng-model="ckValue" label="Mini Material Checkbox"></mm-checkbox>
+
+                <h3>&lt;mm-switch> &lt;mm-switch></h3>
+                <mm-switch ng-model="ckValue" label="Mini Material Switch"></mm-switch>
             </div>
         </div>
     </div>
@@ -47,7 +53,7 @@
     <script>
         var app = angular.module('mmAngualrTest', ['ngMiniMaterial']);
         app.run(['$rootScope', function ($rootScope) {
-            $rootScope.mensaje = "Hola Mundo MyMaterial";
+            $rootScope.mensaje = "Hola Mundo MiniMaterial";
             $rootScope.working = true;
             // $rootScope.input1 = 'walter corrales';
             $rootScope.clickMe = function () {

@@ -1,4 +1,4 @@
-mymaterialModule.directive('mmButton', ['$compile', function ($compile) {
+miniapp.directive('mmButton', ['$compile', function ($compile) {
     return {
         terminal: true, // si la directiva tiene internamente otras directivas
         scope: false, // utilizar el scope actual

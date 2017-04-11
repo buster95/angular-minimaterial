@@ -1,4 +1,4 @@
-mymaterialModule.directive('mmCheckbox', ['$compile', function ($compile) {
+miniapp.directive('mmCheckbox', ['$compile', function ($compile) {
     return {
         terminal: true,
         scope: false,

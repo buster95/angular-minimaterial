@@ -147,7 +147,7 @@ body * {
   z-index: 10;
   font-weight: normal;
   font-size: 16px;
-  transition: 0.3s all ease;
+  transition: 0.15s ease-out;
 }
 .input-group .form-control {
   border: none;
@@ -279,4 +279,50 @@ body * {
     -webkit-transform: rotate(450deg);
     transform: rotate(450deg);
   }
+}
+.mmswitch-container .mmswitch {
+  display: inline;
+  margin-left: 10px;
+}
+.mmswitch-container .mmswitch > input[type="checkbox"] {
+  display: none;
+}
+.mmswitch-container .mmswitch > label {
+  cursor: pointer;
+  height: 0px;
+  position: relative;
+  width: 40px;
+}
+.mmswitch-container .mmswitch > label::before {
+  background: #000000;
+  box-shadow: inset 0px 0px 10px rgba(0, 0, 0, 0.5);
+  border-radius: 8px;
+  content: '';
+  height: 16px;
+  margin-top: -8px;
+  position: absolute;
+  opacity: 0.3;
+  transition: all 0.4s ease-in-out;
+  width: 40px;
+}
+.mmswitch-container .mmswitch > label::after {
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.3);
+  content: '';
+  height: 24px;
+  left: -4px;
+  margin-top: -8px;
+  position: absolute;
+  top: -4px;
+  transition: all 0.3s ease-in-out;
+  width: 24px;
+}
+.mmswitch-container .mmswitch > input[type="checkbox"]:checked + label::before {
+  background: inherit;
+  opacity: 0.5;
+}
+.mmswitch-container .mmswitch > input[type="checkbox"]:checked + label::after {
+  background: inherit;
+  left: 20px;
 }

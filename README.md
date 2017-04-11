@@ -1,2 +1,2 @@
-# mmAngular
-Angular1 Material Design Module
+# angular-minimateria
+Es una pequeña libreria para obtener material design en tus proyectos con angular

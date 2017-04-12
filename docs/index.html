@@ -30,9 +30,13 @@
                 <mm-loader ng-model="working" stroke-width="5"></mm-loader>
 
                 <h3>&lt;mm-input> &lt;mm-input></h3>
-                <mm-input ng-model="input1" placeholder="Ingresa un texto"></mm-input>
-                <mm-input ng-model="input2" placeholder="Ingresa un texto"></mm-input>
+                <mm-input ng-model="input1" placeholder="Usuario/Correo Electronico"></mm-input>
+                <mm-input ng-model="input2" type="password" placeholder="Contraseña"></mm-input>
                 <p> Input1 Dice: {{input1}} </p>
+
+                <h3>&lt;mm-textarea> &lt;/mm-textarea></h3>
+                <mm-textarea ng-model="input3" placeholder="Descripción"></mm-textarea>
+                <mm-input ng-model="input4" placeholder="Input de referencia"></mm-input>
 
                 <h3>&lt;mm-button> &lt;mm-button></h3>
                 <mm-button ng-click="clickMe()" class="btn-danger">Activity Indicator</mm-button>

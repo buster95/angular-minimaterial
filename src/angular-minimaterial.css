@@ -1,17 +1,3 @@
-@font-face {
-  font-family: 'Roboto';
-  src: url('fonts/Roboto/Roboto-Regular.ttf');
-}
-@font-face {
-  font-family: 'Roboto';
-  src: url('fonts/Roboto/Roboto-Light.ttf');
-  font-weight: lighter;
-}
-@font-face {
-  font-family: 'Roboto';
-  src: url('fonts/Roboto/Roboto-Bold.ttf');
-  font-weight: bold;
-}
 body {
   background: #fdfdfd;
 }
@@ -134,7 +120,6 @@ body * {
 }
 .input-group {
   padding-top: 15px;
-  box-sizing: border-box;
   width: 100%;
 }
 .input-group label {
@@ -146,10 +131,11 @@ body * {
   bottom: 5px;
   z-index: 10;
   font-weight: normal;
-  font-size: 16px;
+  font-size: 14px;
   transition: 0.15s ease-out;
 }
 .input-group .form-control {
+  width: 100%;
   border: none;
   box-shadow: none;
   border-radius: 0;
@@ -171,6 +157,21 @@ body * {
   font-size: 12px;
   bottom: 35px;
   color: black;
+}
+.input-group textarea.form-control {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  padding-top: 0;
+  height: 30px;
+  resize: none;
+  overflow-y: hidden;
+}
+.input-group textarea.form-control ~ label {
+  top: 20px;
+}
+.input-group textarea.form-control:focus ~ label,
+.input-group textarea.form-control:not([value=""]) ~ label {
+  top: -8px;
 }
 .spinner-container {
   display: -webkit-flex;

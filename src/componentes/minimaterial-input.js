@@ -1,3 +1,12 @@
+miniapp.filter('secreto', [function () {
+    return function (input) {
+        if (input !== undefined) {
+            return input.replace(/./gi, '*');
+        }
+        return "";
+    }
+}]);
+
 miniapp.directive('mmInput', ['$compile', function ($compile) {
     return {
         terminal: true,
@@ -15,12 +24,17 @@ miniapp.directive('mmInput', ['$compile', function ($compile) {
                     throw "mm-input Requiere obligatoriamente ngModel";
                 }
 
+                var valueAttr = modelo;
+                if (tipo === 'password') {
+                    valueAttr += " | secreto"
+                }
+
                 var placeholder = attrs.placeholder !== undefined ? attrs.placeholder : '';
 
                 var template = angular.element('<div class="form-group" style="' + estilo + '">' +
                     '<div class="input-group">' +
                     // '<input id="txt_' + modelo + '" type="' + tipo + '" ng-model="' + modelo + '" name="txt_' + modelo + '" value="" onchange="this.setAttribute("value", this.value);" class="form-control" />' +
-                    '<input id="txt_' + modelo + '" type="' + tipo + '" ng-model="' + modelo + '" name="txt_' + modelo + '" value="{{' + modelo + '}}" class="form-control" />' +
+                    '<input id="txt_' + modelo + '" type="' + tipo + '" ng-model="' + modelo + '" name="txt_' + modelo + '" value="{{' + valueAttr + '}}" class="form-control" />' +
                     '<label for="txt_' + modelo + '">' + placeholder + '</label>' +
                     '</div>' +
                     '</div>');

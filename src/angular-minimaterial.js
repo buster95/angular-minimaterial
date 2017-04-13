@@ -77,9 +77,14 @@ miniapp.directive('mmInput', ['$compile', function ($compile) {
                     valueAttr += " | secreto"
                 }
 
+                var ifAttrs = "";
+                if (attrs.ngIf !== undefined && attrs.ngIf !== '') {
+                    ifAttrs = 'ng-if="' + attrs.ngIf + '"';
+                }
+
                 var placeholder = attrs.placeholder !== undefined ? attrs.placeholder : '';
 
-                var template = angular.element('<div class="form-group" style="' + estilo + '">' +
+                var template = angular.element('<div class="form-group" style="' + estilo + '" ' + ifAttrs + '>' +
                     '<div class="input-group">' +
                     // '<input id="txt_' + modelo + '" type="' + tipo + '" ng-model="' + modelo + '" name="txt_' + modelo + '" value="" onchange="this.setAttribute("value", this.value);" class="form-control" />' +
                     '<input id="txt_' + modelo + '" type="' + tipo + '" ng-model="' + modelo + '" name="txt_' + modelo + '" value="{{' + valueAttr + '}}" class="form-control" />' +
@@ -102,8 +107,6 @@ miniapp.directive('mmTextarea', ['$compile', function ($compile) {
         // require: '?ngModel',
         compile: function (tElement, tAttrs) {
             return function Linked(scope, elemento, attrs) {
-                var tipo = attrs.type !== undefined ? attrs.type : 'text';
-
                 var estilo = attrs.style !== undefined ? attrs.style : '';
 
                 var modelo = attrs.ngModel;
@@ -113,10 +116,15 @@ miniapp.directive('mmTextarea', ['$compile', function ($compile) {
 
                 var placeholder = attrs.placeholder !== undefined ? attrs.placeholder : '';
 
-                var template = angular.element('<div class="form-group" style="padding-top:5px;' + estilo + '">' +
+                var ifAttrs = "";
+                if (attrs.ngIf !== undefined && attrs.ngIf !== '') {
+                    ifAttrs = 'ng-if="' + attrs.ngIf + '"';
+                }
+
+                var template = angular.element('<div class="form-group" style="padding-top:5px;' + estilo + '" ' + ifAttrs + '>' +
                     '<div class="input-group">' +
                     // '<input id="txt_' + modelo + '" type="' + tipo + '" ng-model="' + modelo + '" name="txt_' + modelo + '" value="" onchange="this.setAttribute("value", this.value);" class="form-control" />' +
-                    '<textarea id="txt_' + modelo + '" type="' + tipo + '" ng-model="' + modelo + '" name="txt_' + modelo + '" value="{{' + modelo + '}}" class="form-control"></textarea>' +
+                    '<textarea id="txt_' + modelo + '" ng-model="' + modelo + '" name="txt_' + modelo + '" value="{{' + modelo + '}}" class="form-control"></textarea>' +
                     '<label for="txt_' + modelo + '">' + placeholder + '</label>' +
                     '</div>' +
                     '</div>');

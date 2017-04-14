@@ -8,11 +8,11 @@ var jsx = require('gulp-angular-jsx');
 
 var dirjs = [
     "src/componentes/minimaterial.js",
-    "src/componentes/minimaterial-*.js"
+    "src/componentes/**/*.js"
 ];
 var cssdir = [
-    'src/styles/minimaterial.less',
-    'src/styles/minimaterial-*.less'
+    'src/componentes/minimaterial.less',
+    'src/componentes/**/*.less'
 ];
 gulp.task('default', function () {
     gulp.watch(dirjs, ['js_task']);

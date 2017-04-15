@@ -84,11 +84,25 @@ miniapp.directive('mmInput', ['$compile', function ($compile) {
                     valueAttr += " | secreto"
                 }
 
+                var extraAttrs = "";
+                var required = attrs.required;
+                var readonly = attrs.readonly;
+                console.log(readonly);
+                if (required !== undefined && required === true) {
+                    extraAttrs += "required "
+                }
+
+                if (angular.isString(readonly)) {
+                    if (readonly !== undefined && (readonly === "" || readonly === "true")) {
+                        extraAttrs += "readonly ";
+                    }
+                }
+
                 var template = angular.element(
                     '<div class="form-group" style="' + estilo + '">' +
                     '<div class="input-group">' +
                     // '<input id="txt_' + modelo + '" type="' + tipo + '" ng-model="' + modelo + '" name="txt_' + modelo + '" value="" onchange="this.setAttribute("value", this.value);" class="form-control" />' +
-                    '<input id="txt_' + modelo + '" type="' + tipo + '" ng-model="' + modelo + '" name="txt_' + modelo + '" value="{{' + valueAttr + '}}" class="form-control" />' +
+                    '<input id="txt_' + modelo + '" type="' + tipo + '" ng-model="' + modelo + '" name="txt_' + modelo + '" value="{{' + valueAttr + '}}" class="form-control" ' + extraAttrs + '/>' +
                     '<label for="txt_' + modelo + '">' + placeholder + '</label>' +
                     '</div>' +
                     '</div>');
@@ -117,11 +131,24 @@ miniapp.directive('mmTextarea', ['$compile', function ($compile) {
 
                 var placeholder = attrs.placeholder !== undefined ? attrs.placeholder : '';
 
+                var extraAttrs = "";
+                var required = attrs.required;
+                var readonly = attrs.readonly;
+                if (required !== undefined && required === true) {
+                    extraAttrs += "required "
+                }
+
+                if (angular.isString(readonly)) {
+                    if (readonly !== undefined && (readonly === "" || readonly === "true")) {
+                        extraAttrs += "readonly ";
+                    }
+                }
+
                 var template = angular.element(
                     '<div class="form-group" style="padding-top:5px;' + estilo + '">' +
                     '<div class="input-group">' +
                     // '<input id="txt_' + modelo + '" type="' + tipo + '" ng-model="' + modelo + '" name="txt_' + modelo + '" value="" onchange="this.setAttribute("value", this.value);" class="form-control" />' +
-                    '<textarea id="txt_' + modelo + '" ng-model="' + modelo + '" name="txt_' + modelo + '" value="{{' + modelo + '}}" class="form-control"></textarea>' +
+                    '<textarea id="txt_' + modelo + '" ng-model="' + modelo + '" name="txt_' + modelo + '" value="{{' + modelo + '}}" class="form-control" ' + extraAttrs + '></textarea>' +
                     '<label for="txt_' + modelo + '">' + placeholder + '</label>' +
                     '</div>' +
                     '</div>');
@@ -149,6 +176,7 @@ miniapp.directive('mmTextarea', ['$compile', function ($compile) {
         }
     }
 }]);
+
 miniapp.directive('mmLoader', ['$compile', function ($compile) {
     return {
         terminal: true,
@@ -188,7 +216,39 @@ miniapp.directive('mmLoader', ['$compile', function ($compile) {
         }
     };
 }]);
+miniapp.directive('mmSwitch', ['$compile', function ($compile) {
+    return {
+        terminal: true,
+        scope: false,
+        restrict: 'E',
+        // require: '?ngModel',
+        compile: function (tElement, tAttrs) {
+            return function Linked(scope, elemento, attrs) {
+                var estilo = attrs.style !== undefined ? attrs.style : '';
 
+                var modelo = attrs.ngModel;
+                if (modelo === null || modelo === undefined || modelo === '') {
+                    throw "mm-switch Requiere obligatoriamente ngModel";
+                }
+
+                var label = attrs.label !== undefined ? attrs.label : '';
+
+                var template = angular.element(
+                    '<div class="mmswitch-container">' +
+                    '<click style="cursor:pointer;" ng-click="' + modelo + '=!' + modelo + '">' + label + '</click>' +
+                    '<div class="mmswitch" >' +
+                    '<input id="sw_' + modelo + '" ng-model="' + modelo + '" type="checkbox" />' +
+                    '<label for="sw_' + modelo + '" class="label-primary"></label>' +
+                    '</div >' +
+                    '</div >'
+                );
+
+                $compile(template)(scope);
+                elemento.replaceWith(template);
+            }
+        }
+    }
+}]);
 miniapp.service('$mmSnackbar', [function () {
     var body = angular.element(document.body);
     var time = 3000;
@@ -258,39 +318,6 @@ miniapp.service('$mmSnackbar', [function () {
                 case "bottom-right":
                     CreateStyle('.snackbar-wrapper { bottom: 30px; right:30px; margin:0; }');
                     break;
-            }
-        }
-    }
-}]);
-miniapp.directive('mmSwitch', ['$compile', function ($compile) {
-    return {
-        terminal: true,
-        scope: false,
-        restrict: 'E',
-        // require: '?ngModel',
-        compile: function (tElement, tAttrs) {
-            return function Linked(scope, elemento, attrs) {
-                var estilo = attrs.style !== undefined ? attrs.style : '';
-
-                var modelo = attrs.ngModel;
-                if (modelo === null || modelo === undefined || modelo === '') {
-                    throw "mm-switch Requiere obligatoriamente ngModel";
-                }
-
-                var label = attrs.label !== undefined ? attrs.label : '';
-
-                var template = angular.element(
-                    '<div class="mmswitch-container">' +
-                    '<click style="cursor:pointer;" ng-click="' + modelo + '=!' + modelo + '">' + label + '</click>' +
-                    '<div class="mmswitch" >' +
-                    '<input id="sw_' + modelo + '" ng-model="' + modelo + '" type="checkbox" />' +
-                    '<label for="sw_' + modelo + '" class="label-primary"></label>' +
-                    '</div >' +
-                    '</div >'
-                );
-
-                $compile(template)(scope);
-                elemento.replaceWith(template);
             }
         }
     }

@@ -30,8 +30,8 @@
                 <mm-loader ng-model="working" stroke-width="5"></mm-loader>
 
                 <h3>&lt;mm-input> &lt;/mm-input></h3>
-                <mm-input ng-model="input1" placeholder="Usuario/Correo Electronico"></mm-input>
-                <mm-input ng-model="input2" type="password" placeholder="Contraseña"></mm-input>
+                <mm-input ng-model="input1" placeholder="Usuario/Correo Electronico" required="true"></mm-input>
+                <mm-input ng-model="input2" type="password" placeholder="Contraseña" readonly></mm-input>
                 <p>
                     Input1 Dice: {{input1}}
                     <br> Input2 Dice: {{input2}}
@@ -69,7 +69,7 @@
             $mmSnackbar.setPosition('bottom-left');
             $rootScope.mensaje = "Hola Mundo MiniMaterial";
             $rootScope.working = true;
-            // $rootScope.input1 = 'walter corrales';
+            // $rootScope.input2 = 'walter corrales';
             $rootScope.clickMe = function () {
                 $rootScope.working = !$rootScope.working;
                 // alert('Hola Mundo Click Me!');

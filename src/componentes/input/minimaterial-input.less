@@ -29,10 +29,10 @@
         border-bottom: 1px solid #9e9e9e;
         transition: 0.3s border-bottom ease;
 
-        &[readonly] {
-            padding-left: 5px;
-            padding-right: 5px;
-        }
+        // &[readonly] {
+        //     padding-left: 5px;
+        //     padding-right: 5px;
+        // }
     }
 
     .form-control:focus {
@@ -44,7 +44,15 @@
     .form-control:not([value=""]) ~ label {
         font-size: 12px;
         bottom: 35px;
-        color: black;
+        color: @color_primary;
+    }
+
+    .form-control[readonly]:focus{
+        border-bottom: 1px solid #9e9e9e;
+        box-shadow: 0 1px 0 0 #9e9e9e;
+    }
+    .form-control[readonly]:focus ~ label {
+        color: #9e9e9e;
     }
 
     textarea.form-control{

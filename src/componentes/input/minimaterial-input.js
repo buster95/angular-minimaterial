@@ -36,11 +36,25 @@ miniapp.directive('mmInput', ['$compile', function ($compile) {
                     valueAttr += " | secreto"
                 }
 
+                var extraAttrs = "";
+                var required = attrs.required;
+                var readonly = attrs.readonly;
+                console.log(readonly);
+                if (required !== undefined && required === true) {
+                    extraAttrs += "required "
+                }
+
+                if (angular.isString(readonly)) {
+                    if (readonly !== undefined && (readonly === "" || readonly === "true")) {
+                        extraAttrs += "readonly ";
+                    }
+                }
+
                 var template = angular.element(
                     '<div class="form-group" style="' + estilo + '">' +
                     '<div class="input-group">' +
                     // '<input id="txt_' + modelo + '" type="' + tipo + '" ng-model="' + modelo + '" name="txt_' + modelo + '" value="" onchange="this.setAttribute("value", this.value);" class="form-control" />' +
-                    '<input id="txt_' + modelo + '" type="' + tipo + '" ng-model="' + modelo + '" name="txt_' + modelo + '" value="{{' + valueAttr + '}}" class="form-control" />' +
+                    '<input id="txt_' + modelo + '" type="' + tipo + '" ng-model="' + modelo + '" name="txt_' + modelo + '" value="{{' + valueAttr + '}}" class="form-control" ' + extraAttrs + '/>' +
                     '<label for="txt_' + modelo + '">' + placeholder + '</label>' +
                     '</div>' +
                     '</div>');
@@ -69,11 +83,24 @@ miniapp.directive('mmTextarea', ['$compile', function ($compile) {
 
                 var placeholder = attrs.placeholder !== undefined ? attrs.placeholder : '';
 
+                var extraAttrs = "";
+                var required = attrs.required;
+                var readonly = attrs.readonly;
+                if (required !== undefined && required === true) {
+                    extraAttrs += "required "
+                }
+
+                if (angular.isString(readonly)) {
+                    if (readonly !== undefined && (readonly === "" || readonly === "true")) {
+                        extraAttrs += "readonly ";
+                    }
+                }
+
                 var template = angular.element(
                     '<div class="form-group" style="padding-top:5px;' + estilo + '">' +
                     '<div class="input-group">' +
                     // '<input id="txt_' + modelo + '" type="' + tipo + '" ng-model="' + modelo + '" name="txt_' + modelo + '" value="" onchange="this.setAttribute("value", this.value);" class="form-control" />' +
-                    '<textarea id="txt_' + modelo + '" ng-model="' + modelo + '" name="txt_' + modelo + '" value="{{' + modelo + '}}" class="form-control"></textarea>' +
+                    '<textarea id="txt_' + modelo + '" ng-model="' + modelo + '" name="txt_' + modelo + '" value="{{' + modelo + '}}" class="form-control" ' + extraAttrs + '></textarea>' +
                     '<label for="txt_' + modelo + '">' + placeholder + '</label>' +
                     '</div>' +
                     '</div>');

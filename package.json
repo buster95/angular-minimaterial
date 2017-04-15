@@ -4,7 +4,7 @@
   "description": "Componentes material design para angular y bootstrap",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "lite-server ."
   },
   "keywords": [
     "angular",

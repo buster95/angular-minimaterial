@@ -279,6 +279,85 @@ body * {
     transform: rotate(450deg);
   }
 }
+.snackbar-wrapper {
+  position: fixed;
+  bottom: 30px;
+  left: 30px;
+  z-index: 1000;
+  /* Show the snackbar when clicking on a button (class added with JavaScript) */
+}
+.snackbar-wrapper .snackbar {
+  min-width: 250px;
+  max-width: 280px;
+  background-color: #323232;
+  color: #fff;
+  text-align: left;
+  font-weight: bold;
+  border-radius: 2px;
+  margin-bottom: 10px;
+  padding: 16px;
+  position: relative;
+  left: 0;
+  bottom: 0;
+  z-index: 1000;
+}
+.snackbar-wrapper .snackbar .snackbar-button {
+  position: absolute;
+  background: transparent;
+  padding: 10px 10px;
+  color: white;
+  right: 5px;
+  top: 9px;
+  border: none;
+  border-radius: none;
+}
+.snackbar-wrapper .snackbar .snackbar-button:hover {
+  background: #484848;
+  color: white;
+}
+.snackbar-wrapper .snackbar-success {
+  color: #9CCC65;
+}
+.snackbar-wrapper .snackbar-info {
+  color: #4DD0E1;
+}
+.snackbar-wrapper .snackbar-warning {
+  color: #FFEE58;
+}
+.snackbar-wrapper .snackbar-error {
+  color: #ef5350;
+}
+.snackbar-wrapper .snackbar.show {
+  animation: fadein 0.5s;
+  -webkit-animation: fadein 0.5s;
+  /* Add animation: Take 0.5 seconds to fade in and out the snackbar. 
+However, delay the fade out process for 2.5 seconds */
+}
+.snackbar-wrapper .snackbar.hide {
+  animation: fadeout 0.5s;
+  -webkit-animation: fadeout 0.5s;
+}
+/* Animations to fade the snackbar in and out */
+@keyframes fadein {
+  from {
+    margin-bottom: -100px;
+    opacity: 0;
+  }
+  to {
+    margin-bottom: 0;
+    opacity: 1;
+  }
+}
+@keyframes fadeout {
+  from {
+    margin-left: 0;
+    opacity: 1;
+  }
+  to {
+    margin-bottom: -100px;
+    opacity: 0;
+  }
+}
 .mmswitch-container {
   margin-bottom: 15px;
 }

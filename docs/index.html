@@ -26,28 +26,36 @@
             </div>
 
             <div class="panel-body">
-                <h3>&lt;mm-loader> &lt;mm-loader></h3>
+                <h3>&lt;mm-loader> &lt;/mm-loader></h3>
                 <mm-loader ng-model="working" stroke-width="5"></mm-loader>
 
-                <h3>&lt;mm-input> &lt;mm-input></h3>
+                <h3>&lt;mm-input> &lt;/mm-input></h3>
                 <mm-input ng-model="input1" placeholder="Usuario/Correo Electronico"></mm-input>
                 <mm-input ng-model="input2" type="password" placeholder="Contraseña"></mm-input>
-                <p> Input1 Dice: {{input1}}   Input2 Dice: {{input2}} </p>
+                <p>
+                    Input1 Dice: {{input1}}
+                    <br> Input2 Dice: {{input2}}
+                </p>
 
                 <h3>&lt;mm-textarea> &lt;/mm-textarea></h3>
                 <mm-textarea ng-model="input3" placeholder="Descripción"></mm-textarea>
-                <mm-input ng-model="input4" placeholder="Input de referencia"></mm-input>
 
-                <h3>&lt;mm-button> &lt;mm-button></h3>
+                <h3>&lt;mm-button> &lt;/mm-button></h3>
                 <mm-button ng-click="clickMe()" class="btn-danger">Activity Indicator</mm-button>
                 <mm-button ng-click="clickMe2()" class="btn-primary">Click Me!</mm-button>
 
-                <h3>&lt;mm-checkbox> &lt;mm-checkbox></h3>
+                <h3>&lt;mm-checkbox> &lt;/mm-checkbox></h3>
                 <mm-checkbox ng-model="ckValue" label="Mini Material Checkbox"></mm-checkbox>
 
-                <h3>&lt;mm-switch> &lt;mm-switch></h3>
+                <h3>&lt;mm-switch> &lt;/mm-switch></h3>
                 <mm-switch ng-model="ckValue" label="Mini Material Switch"></mm-switch>
                 <mm-input ng-model="input5" ng-if="ckValue" placeholder="Input que se oculta"></mm-input>
+
+                <h3>$mmSnackbar</h3>
+                <mm-button ng-click="showSnackbar()" class="btn-success">Success</mm-button>
+                <mm-button ng-click="showInfo()" class="btn-info">Info</mm-button>
+                <mm-button ng-click="showWarning()" class="btn-warning">Warning</mm-button>
+                <mm-button ng-click="showError()" class="btn-danger">Error</mm-button>
             </div>
         </div>
     </div>
@@ -57,7 +65,8 @@
 
     <script>
         var app = angular.module('mmAngualrTest', ['ngMiniMaterial']);
-        app.run(['$rootScope', function ($rootScope) {
+        app.run(['$rootScope', '$mmSnackbar', function ($rootScope, $mmSnackbar) {
+            $mmSnackbar.setPosition('bottom-left');
             $rootScope.mensaje = "Hola Mundo MiniMaterial";
             $rootScope.working = true;
             // $rootScope.input1 = 'walter corrales';
@@ -65,9 +74,22 @@
                 $rootScope.working = !$rootScope.working;
                 // alert('Hola Mundo Click Me!');
             };
-
             $rootScope.clickMe2 = function () {
                 $rootScope.ckValue = !$rootScope.ckValue;
+            };
+
+
+            $rootScope.showSnackbar = function () {
+                $mmSnackbar.success('Hola Mundo al snackbar a nacido un nuevo integrante al minimaterial');
+            };
+            $rootScope.showInfo = function () {
+                $mmSnackbar.info('Hola Mundo al snackbar a nacido un nuevo integrante al minimaterial');
+            };
+            $rootScope.showWarning = function () {
+                $mmSnackbar.warning('Hola Mundo al snackbar a nacido un nuevo integrante al minimaterial');
+            };
+            $rootScope.showError = function () {
+                $mmSnackbar.error('Hola Mundo al snackbar a nacido un nuevo integrante al minimaterial');
             };
         }]);
     </script>

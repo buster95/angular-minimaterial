@@ -7,7 +7,7 @@ miniapp.filter('secreto', [function () {
     }
 }]);
 
-miniapp.directive('mmInput', ['$compile', function ($compile) {
+miniapp.directive('mmInput', ['$compile', '$parse', function ($compile, $parse) {
     return {
         // transclude: 'element',
         // priority: 600,
@@ -17,10 +17,6 @@ miniapp.directive('mmInput', ['$compile', function ($compile) {
         restrict: 'E',
         // require: '?ngModel, ?ngIf',
         compile: function (tElement, tAttrs) {
-            var condicional = tAttrs.ngIf;
-            var iElement = tElement[0];
-            iElement.removeAttribute("ngIf");
-
             return function PostLink(scope, elemento, attrs) {
                 var tipo = attrs.type !== undefined ? attrs.type : 'text';
                 var estilo = attrs.style !== undefined ? attrs.style : '';
@@ -31,15 +27,31 @@ miniapp.directive('mmInput', ['$compile', function ($compile) {
                     throw "mm-input Requiere obligatoriamente ngModel";
                 }
 
-                var valueAttr = attrs.ngModel;
+                var value = attrs.ngModel;
                 if (tipo === 'password') {
-                    valueAttr += " | secreto"
+                    value += " | secreto"
                 }
 
                 var extraAttrs = "";
+                if (tipo === 'number') {
+                    var min = attrs.min, max = attrs.max, step = attrs.step;
+                    if (angular.isNumber(min)) {
+                        extraAttrs += 'min="' + min + '"';
+                        $parse(modelo).assign(scope, Number(min));
+                    } else {
+                        $parse(modelo).assign(scope, 0);
+                    }
+                    console.log(max, angular.isNumber(max));
+                    if (angular.isNumber(max)) {
+                        extraAttrs += 'max="' + max + '"';
+                    }
+                    if (angular.isNumber(step)) {
+                        extraAttrs += 'step="' + step + '"';
+                    }
+                }
+
                 var required = attrs.required;
                 var readonly = attrs.readonly;
-                console.log(readonly);
                 if (required !== undefined && required === true) {
                     extraAttrs += "required "
                 }
@@ -54,7 +66,7 @@ miniapp.directive('mmInput', ['$compile', function ($compile) {
                     '<div class="form-group" style="' + estilo + '">' +
                     '<div class="input-group">' +
                     // '<input id="txt_' + modelo + '" type="' + tipo + '" ng-model="' + modelo + '" name="txt_' + modelo + '" value="" onchange="this.setAttribute("value", this.value);" class="form-control" />' +
-                    '<input id="txt_' + modelo + '" type="' + tipo + '" ng-model="' + modelo + '" name="txt_' + modelo + '" value="{{' + valueAttr + '}}" class="form-control" ' + extraAttrs + '/>' +
+                    '<input id="txt_' + modelo + '" type="' + tipo + '" ng-model="' + modelo + '" name="txt_' + modelo + '" value="{{' + value + '}}" class="form-control" ' + extraAttrs + '/>' +
                     '<label for="txt_' + modelo + '">' + placeholder + '</label>' +
                     '</div>' +
                     '</div>');

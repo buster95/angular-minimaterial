@@ -22,10 +22,10 @@ gulp.task('default', function () {
 
 gulp.task('js_task', function () {
     gulp.src(dirjs)
+        .pipe(sourcemaps.init())
         .pipe(plumber())
         .pipe(concat('angular-minimaterial.js'))
         .pipe(gulp.dest('./src/'))
-        .pipe(sourcemaps.init())
         .pipe(jsmin())
         .pipe(concat('angular-minimaterial.min.js'))
         .pipe(sourcemaps.write('./'))

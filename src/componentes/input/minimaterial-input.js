@@ -41,7 +41,18 @@ miniapp.directive('mmInput', ['$compile', '$parse', function ($compile, $parse) 
                     } else {
                         $parse(modelo).assign(scope, 0);
                     }
-                    console.log(max, angular.isNumber(max));
+
+                    scope.$watch(modelo, function (newvalue, currentvalue) {
+                        console.log(newvalue, currentvalue);
+                        if (newvalue === undefined) {
+                            if (angular.isNumber(min)) {
+                                $parse(modelo).assign(scope, Number(min));
+                            } else {
+                                $parse(modelo).assign(scope, 0);
+                            }
+                        }
+                    });
+
                     if (angular.isNumber(max)) {
                         extraAttrs += 'max="' + max + '"';
                     }

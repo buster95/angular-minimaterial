@@ -32,7 +32,7 @@
                 <h3>&lt;mm-input> &lt;/mm-input></h3>
                 <mm-input ng-model="input1" placeholder="Usuario/Correo Electronico" required="true"></mm-input>
                 <mm-input ng-model="input2" type="password" placeholder="Contraseña" readonly></mm-input>
-                <mm-input ng-model="input_number" max="100" type="number" placeholder="Seleccione un número"></mm-input>
+                <mm-input ng-model="input_number" min="10" max="100" type="number" placeholder="Seleccione un número"></mm-input>
                 <p>
                     Input1 Dice: {{input1}}
                     <br> Input2 Dice: {{input2}}

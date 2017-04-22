@@ -135,6 +135,7 @@ miniapp.directive('mmInput', ['$compile', '$parse', function ($compile, $parse) 
                     // '<input id="txt_' + modelo + '" type="' + tipo + '" ng-model="' + modelo + '" name="txt_' + modelo + '" value="" onchange="this.setAttribute("value", this.value);" class="form-control" />' +
                     '<input id="txt_' + modelo + '" type="' + tipo + '" ng-model="' + modelo + '" name="txt_' + modelo + '" value="{{' + value + '}}" class="form-control" ' + extraAttrs + '/>' +
                     '<label for="txt_' + modelo + '">' + placeholder + '</label>' +
+                    '<line class="line"></line>' +
                     '</div>' +
                     '</div>');
 
@@ -181,6 +182,7 @@ miniapp.directive('mmTextarea', ['$compile', function ($compile) {
                     // '<input id="txt_' + modelo + '" type="' + tipo + '" ng-model="' + modelo + '" name="txt_' + modelo + '" value="" onchange="this.setAttribute("value", this.value);" class="form-control" />' +
                     '<textarea id="txt_' + modelo + '" ng-model="' + modelo + '" name="txt_' + modelo + '" value="{{' + modelo + '}}" class="form-control" ' + extraAttrs + '></textarea>' +
                     '<label for="txt_' + modelo + '">' + placeholder + '</label>' +
+                    '<line class="line"></line>' +
                     '</div>' +
                     '</div>');
 
@@ -351,5 +353,93 @@ miniapp.directive('mmSwitch', ['$compile', function ($compile) {
                 elemento.replaceWith(template);
             }
         }
+    }
+}]);
+miniapp.directive('mmTab', [function () {
+    return {
+        priority: 0,
+        replace: true,
+        restrict: 'E',
+        require: '^mmTabbed',
+        // transclude: true,
+        scope: { label: '@', href: '@', class: '@classes' },
+        template: '<li role="presentation" class="{{classes}}"><a role="button" data-toggle="tab" data-target="{{href}}">{{label}}</a></li>',
+        link: function (scope, element, attrs, tabbed) {
+            element.on('click', function (evt) {
+                evt.preventDefault();
+                var id = element[0].firstChild.getAttribute('data-target');
+                console.log(id);
+                tabbed.selectTab(id);
+
+                // var id = element[0].firstChild.getAttribute('data-target');
+                // var tab = angular.element(document.getElementById(id));
+                // console.log(id, tab, element[0].firstChild);
+            });
+
+            tabbed.addTab(element[0]);
+        }
+    }
+}]);
+
+miniapp.directive('mmTabContent', [function () {
+    return {
+        priority: 0,
+        replace: true,
+        restrict: 'E',
+        require: '^mmTabbedContent',
+        // scope: { href: '@' },
+        terminal: true,
+        transclude: true,
+        template: '<div role="tabpanel" class="tab-pane" ng-transclude=""> </div>'
+    }
+}]);
+miniapp.directive('mmTabbed', [function () {
+    return {
+        priority: 1,
+        transclude: true,
+        terminal: false,
+        replace: true,
+        restrict: 'E',
+        template: '<div class="nav nav-tabs" role="tablist" ng-transclude=""></div>',
+        controller: ['$scope', function ($scope) {
+            var tabs = [];
+            this.removeActive = function () {
+                angular.forEach(tabs, function (tab) {
+                    var target = tab.firstChild.getAttribute('data-target').substr(1);
+                    var content = document.getElementById(target);
+                    content.setAttribute('class', 'tab-pane');
+                    tab.removeAttribute('class');
+                });
+            };
+
+            this.selectTab = function (name) {
+                this.removeActive();
+                angular.forEach(tabs, function (tab) {
+                    var href = tab.firstChild.getAttribute('data-target');
+                    console.log(href, name);
+                    if (href === name) {
+                        var target = tab.firstChild.getAttribute('data-target').substr(1);
+                        var content = document.getElementById(target);
+                        content.setAttribute('class', 'tab-pane active');
+                        tab.setAttribute('class', 'active');
+                    }
+                });
+            };
+
+            this.addTab = function (element) {
+                tabs.push(element);
+            };
+        }]
+    }
+}]);
+
+miniapp.directive('mmTabbedContent', [function () {
+    return {
+        priority: 1,
+        transclude: true,
+        terminal: false,
+        replace: true,
+        restrict: 'E',
+        template: '<div class="tab-content" ng-transclude=""> </div>'
     }
 }]);

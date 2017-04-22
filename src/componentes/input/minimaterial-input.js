@@ -79,6 +79,7 @@ miniapp.directive('mmInput', ['$compile', '$parse', function ($compile, $parse) 
                     // '<input id="txt_' + modelo + '" type="' + tipo + '" ng-model="' + modelo + '" name="txt_' + modelo + '" value="" onchange="this.setAttribute("value", this.value);" class="form-control" />' +
                     '<input id="txt_' + modelo + '" type="' + tipo + '" ng-model="' + modelo + '" name="txt_' + modelo + '" value="{{' + value + '}}" class="form-control" ' + extraAttrs + '/>' +
                     '<label for="txt_' + modelo + '">' + placeholder + '</label>' +
+                    '<line class="line"></line>' +
                     '</div>' +
                     '</div>');
 
@@ -125,6 +126,7 @@ miniapp.directive('mmTextarea', ['$compile', function ($compile) {
                     // '<input id="txt_' + modelo + '" type="' + tipo + '" ng-model="' + modelo + '" name="txt_' + modelo + '" value="" onchange="this.setAttribute("value", this.value);" class="form-control" />' +
                     '<textarea id="txt_' + modelo + '" ng-model="' + modelo + '" name="txt_' + modelo + '" value="{{' + modelo + '}}" class="form-control" ' + extraAttrs + '></textarea>' +
                     '<label for="txt_' + modelo + '">' + placeholder + '</label>' +
+                    '<line class="line"></line>' +
                     '</div>' +
                     '</div>');
 

@@ -7,7 +7,8 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Example MiniMaterial</title>
 
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">-->
+    <link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap.min.css">
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
     <link rel="stylesheet" href="angular-minimaterial.min.css">
 
@@ -15,7 +16,34 @@
 </head>
 
 <body ng-app="mmAngualrTest">
-    <div class="container">
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel">
+                    <div class="panel-heading">Tabs</div>
+                    <div class="panel-body">
+                        <mm-tabbed>
+                            <mm-tab href="#home" class="active" label="Home2">Home</mm-tab>
+                            <mm-tab href="#profile" label="Profile2">Profile</mm-tab>
+                        </mm-tabbed>
+
+                        <mm-tabbed-content>
+                            <mm-tab-content id="home" class="active">
+                                <h4>Titulo Home</h4>
+                            </mm-tab-content>
+
+                            <mm-tab-content id="profile">
+                                <h4>Titulo Profile</h4>
+                            </mm-tab-content>
+                        </mm-tabbed-content>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid">
         <div class="panel">
             <div class="panel-heading">
                 <h3 style="text-align: center;">
@@ -49,8 +77,7 @@
                 <mm-checkbox ng-model="ckValue" label="Mini Material Checkbox"></mm-checkbox>
 
                 <h3>&lt;mm-switch> &lt;/mm-switch></h3>
-                <mm-switch ng-model="ckValue" label="Mini Material Switch"></mm-switch>
-                <mm-input ng-model="input5" ng-if="ckValue" placeholder="Input que se oculta"></mm-input>
+                <mm-switch ng-model="ckValue2" label="Mini Material Switch"></mm-switch>
 
                 <h3>$mmSnackbar</h3>
                 <mm-button ng-click="showSnackbar()" class="btn-success">Success</mm-button>
@@ -61,7 +88,10 @@
         </div>
     </div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.0/angular.min.js"></script>
+    <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.0/angular.min.js"></script>-->
+    <script src="../bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="../bower_components/angular/angular.min.js"></script>
     <script src="angular-minimaterial.min.js"></script>
 
     <script>

@@ -34,15 +34,19 @@ miniapp.directive('mmInput', ['$compile', '$parse', function ($compile, $parse) 
                     throw "mm-input (paginationSearch and ngModel) ambas directivas no son permitidas a la vez\n";
                 }
 
-                if (search !== undefined || search !== '') {
-                    $parse(search + '_search').assign(scope, '');
-                    extraAttrs += 'pagination-search="' + search + '"';
+                if (modelo !== undefined && modelo !== '' && modelo !== null) {
+                    extraAttrs += 'ng-model="' + modelo + '" ';
                 } else {
-                    extraAttrs += 'ng-model="' + modelo + '"';
+                    $parse(search + '_search').assign(scope, '');
+                    extraAttrs += 'pagination-search="' + search + '" ';
                 }
 
-
-                var value = modelo !== undefined ? modelo : search + '_search';
+                var value = '';
+                if (modelo !== undefined && modelo !== '' && modelo !== null) {
+                    value = modelo;
+                } else {
+                    value = search + '_search';
+                }
                 if (tipo === 'password') {
                     value += " | secreto"
                 }
@@ -50,7 +54,7 @@ miniapp.directive('mmInput', ['$compile', '$parse', function ($compile, $parse) 
                 if (tipo === 'number') {
                     var min = attrs.min, max = attrs.max, step = attrs.step;
                     if (angular.isNumber(min)) {
-                        extraAttrs += 'min="' + min + '"';
+                        extraAttrs += 'min="' + min + '" ';
                         $parse(modelo).assign(scope, Number(min));
                     } else {
                         $parse(modelo).assign(scope, 0);
@@ -68,10 +72,10 @@ miniapp.directive('mmInput', ['$compile', '$parse', function ($compile, $parse) 
                     });
 
                     if (angular.isNumber(max)) {
-                        extraAttrs += 'max="' + max + '"';
+                        extraAttrs += 'max="' + max + '" ';
                     }
                     if (angular.isNumber(step)) {
-                        extraAttrs += 'step="' + step + '"';
+                        extraAttrs += 'step="' + step + '" ';
                     }
                 }
 

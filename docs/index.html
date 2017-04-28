@@ -7,11 +7,12 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Example MiniMaterial</title>
 
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <!--<link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap.min.css">-->
-    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
-    <link rel="stylesheet" href="angular-minimaterial.min.css">
+    <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">-->
+    <!--<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">-->
 
+    <link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap.min.css">
+
+    <link rel="stylesheet" href="angular-minimaterial.min.css">
     <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
 </head>
 
@@ -30,7 +31,29 @@
 
                         <mm-tabbed-content>
                             <mm-tab-content id="home" class="active">
-                                <h4>Titulo Home</h4>
+                                <h4>mm-pagination</h4>
+                                <mm-input pagination-search="datos" placeholder="Buscar un persona"></mm-input>
+                                <table class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>N°</th>
+                                            <th>Nombre</th>
+                                            <th>Apellido</th>
+                                            <th>Fecha</th>
+                                        </tr>
+                                    </thead>
+
+                                    <tbody>
+                                        <tr mm-pagination="d in datos" pagination-size="10">
+                                            <td>{{d.id}}</td>
+                                            <td>{{d.nombre}}</td>
+                                            <td>{{d.apellido}}</td>
+                                            <td>{{d.fecha}}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+                                <ng-pagination-control pagination-id="datos"></ng-pagination-control>
                             </mm-tab-content>
 
                             <mm-tab-content id="profile">
@@ -88,13 +111,15 @@
         </div>
     </div>
 
-    <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+    <!--<script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
         crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.0/angular.min.js"></script>
-    <!--<script src="../bower_components/jquery/dist/jquery.min.js"></script>-->
-    <!--<script src="../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>-->
-    <!--<script src="../bower_components/angular/angular.min.js"></script>-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.0/angular.min.js"></script>-->
+
+    <script src="../bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="../bower_components/angular/angular.min.js"></script>
+
     <script src="angular-minimaterial.min.js"></script>
 
     <script>
@@ -111,6 +136,23 @@
             $rootScope.clickMe2 = function () {
                 $rootScope.ckValue = !$rootScope.ckValue;
             };
+
+
+            $rootScope.datos = [
+                { "id": 1, "nombre": "Walter", "apellido": "Corrales", "fecha": "2017-12-12" },
+                { "id": 2, "nombre": "John", "apellido": "Ruiz", "fecha": "2017-12-12" },
+                { "id": 3, "nombre": "Jacqueline", "apellido": "Torres", "fecha": "2017-12-12" },
+                { "id": 4, "nombre": "Daniel", "apellido": "Walton", "fecha": "2017-12-12" },
+                { "id": 5, "nombre": "Calvin", "apellido": "Martinez", "fecha": "2017-12-12" },
+                { "id": 6, "nombre": "Jeraldine", "apellido": "Castillo", "fecha": "2017-12-12" },
+                { "id": 7, "nombre": "Wilfred", "apellido": "Serrano", "fecha": "2017-12-12" },
+                { "id": 8, "nombre": "Jorge", "apellido": "Barker", "fecha": "2017-12-12" },
+                { "id": 9, "nombre": "Margareth", "apellido": "Ramos", "fecha": "2017-12-12" },
+                { "id": 10, "nombre": "Isabel", "apellido": "Blanding", "fecha": "2017-12-12" },
+                { "id": 11, "nombre": "Alyce", "apellido": "Tinoco", "fecha": "2017-12-12" },
+                { "id": 12, "nombre": "Judith", "apellido": "Altamirano", "fecha": "2017-12-12" },
+                { "id": 13, "nombre": "Yader", "apellido": "Sunseri", "fecha": "2017-12-12" },
+            ]
 
 
             $rootScope.showSnackbar = function () {

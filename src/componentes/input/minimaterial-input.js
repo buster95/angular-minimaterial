@@ -22,17 +22,31 @@ miniapp.directive('mmInput', ['$compile', '$parse', function ($compile, $parse) 
                 var estilo = attrs.style !== undefined ? attrs.style : '';
                 var placeholder = attrs.placeholder !== undefined ? attrs.placeholder : '';
 
+                var extraAttrs = "";
+
                 var modelo = attrs.ngModel;
-                if (modelo === null || modelo === undefined || modelo === '') {
-                    throw "mm-input Requiere obligatoriamente ngModel";
+                var search = attrs.paginationSearch;
+                if ((modelo === null || modelo === undefined || modelo === '') &&
+                    (search === null || search === undefined || search === '')) {
+                    throw "mm-input requiere obligatoriamente ngModel or paginationSearch\n";
+                } else if (modelo != undefined && modelo !== '' && modelo !== null &&
+                    search !== undefined && search !== '' && search !== null) {
+                    throw "mm-input (paginationSearch and ngModel) ambas directivas no son permitidas a la vez\n";
                 }
+
+                if (search !== undefined || search !== '') {
+                    // $parse(search).assign(scope, '');
+                    extraAttrs += 'pagination-search="' + search + '"';
+                } else {
+                    extraAttrs += 'ng-model="' + modelo + '"';
+                }
+
 
                 var value = attrs.ngModel;
                 if (tipo === 'password') {
                     value += " | secreto"
                 }
 
-                var extraAttrs = "";
                 if (tipo === 'number') {
                     var min = attrs.min, max = attrs.max, step = attrs.step;
                     if (angular.isNumber(min)) {
@@ -77,7 +91,7 @@ miniapp.directive('mmInput', ['$compile', '$parse', function ($compile, $parse) 
                     '<div class="form-group" style="' + estilo + '">' +
                     '<div class="input-group">' +
                     // '<input id="txt_' + modelo + '" type="' + tipo + '" ng-model="' + modelo + '" name="txt_' + modelo + '" value="" onchange="this.setAttribute("value", this.value);" class="form-control" />' +
-                    '<input id="txt_' + modelo + '" type="' + tipo + '" ng-model="' + modelo + '" name="txt_' + modelo + '" value="{{' + value + '}}" class="form-control" ' + extraAttrs + '/>' +
+                    '<input id="txt_' + modelo + '" type="' + tipo + '" name="txt_' + modelo + '" value="{{' + value + '}}" class="form-control" ' + extraAttrs + '/>' +
                     '<label for="txt_' + modelo + '">' + placeholder + '</label>' +
                     '<line class="line"></line>' +
                     '</div>' +
@@ -102,7 +116,7 @@ miniapp.directive('mmTextarea', ['$compile', function ($compile) {
 
                 var modelo = attrs.ngModel;
                 if (modelo === null || modelo === undefined || modelo === '') {
-                    throw "mm-input Requiere obligatoriamente ngModel";
+                    throw "mm-textarea Requiere obligatoriamente ngModel";
                 }
 
                 var placeholder = attrs.placeholder !== undefined ? attrs.placeholder : '';

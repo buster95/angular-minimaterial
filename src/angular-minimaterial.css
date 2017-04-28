@@ -302,6 +302,44 @@ body * {
     transform: rotate(450deg);
   }
 }
+.pagination-panel {
+  position: relative;
+  display: inline-block;
+  height: 40px;
+  background-color: #1A237E;
+  border: 0px solid #2e6da4;
+  border-radius: 2px;
+}
+.pagination-panel .indicator {
+  color: white;
+  font-weight: bold;
+  font-size: 15px;
+  padding: 0px 10px;
+  line-height: 0;
+}
+.pagination-panel button {
+  background-color: #1A237E;
+  color: white;
+  height: 100%;
+  border: none;
+  cursor: pointer;
+}
+.pagination-panel button:hover {
+  background-color: #1e2a9d;
+}
+.pagination-panel button:first-child {
+  border-radius: 2px 0 0 2px;
+  border-right: none;
+}
+.pagination-panel button:last-child {
+  border-radius: 0 2px 2px 0;
+  border-left: none;
+}
+.pagination-panel button[disabled] {
+  color: #506E7D;
+  background-color: #D1D5D8;
+  cursor: not-allowed;
+}
 .snackbar-wrapper {
   position: fixed;
   bottom: 30px;

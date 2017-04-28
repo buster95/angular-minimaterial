@@ -17,6 +17,124 @@ miniapp.service('$ngMiniMaterialProvider', [function () {
         }
     }
 }]);
+
+
+
+// ======================================================
+// PAGINADOR
+// ======================================================
+
+Array.prototype.filtrar = function () {
+};
+
+function filtrar(datos, filtro) {
+    var busqueda = [];
+    if (filtro === '' || filtro === undefined) {
+        return datos;
+    }
+    angular.forEach(datos, function (fila) {
+        for (var key in fila) {
+            var propiedad = fila[key];
+            if (esIgualFn(propiedad, filtro)) { busqueda.push(fila); return; }
+        }
+    });
+    return busqueda;
+}
+function esIgualFn(propiedad, filtro) {
+    if (angular.isString(propiedad)) {
+        propiedad = propiedad.toLowerCase();
+    }
+    if (angular.isString(filtro)) {
+        filtro = filtro.toLowerCase();
+    }
+    if (angular.isString(propiedad) && propiedad.length < 100 && (angular.isString(filtro) || angular.isNumber(filtro))) {
+        if (propiedad.indexOf(filtro) > -1) {
+            return true;
+        }
+    }
+    return false;
+}
+
+function getPaginas(datos, size) {
+    'use strict';
+    var pag = 0;
+    if (datos !== undefined) { pag = Math.ceil(datos.length / size); }
+    return pag;
+}
+
+miniapp.filter('startFrom', function () {
+    'use strict';
+    return function (input, inicio) {
+        if (input !== undefined) {
+            inicio = +inicio;
+            return input.slice(inicio);
+        } else {
+            // console.error("Modulo ng-pagination Filter startFrom Error");
+            // throw "Filter startFrom tiene variable "+input;
+        }
+    };
+});
+
+miniapp.filter('pagFilter', function () {
+    'use strict';
+    return function (datos, filtro) {
+        var busqueda = [];
+        if (filtro === '' || filtro === undefined) {
+            return datos;
+        }
+        angular.forEach(datos, function (fila) {
+            for (var key in fila) {
+                var propiedad = fila[key];
+                if (esIgualFn(propiedad, filtro)) { busqueda.push(fila); return; }
+            }
+        });
+        return busqueda;
+    };
+});
+
+miniapp.service('$paginationRegister', ['$injector', function ($injector) {
+    'use strict';
+    function registerMetodos() {
+        this.page_id = '';
+        this.variable = '';
+    }
+    registerMetodos.prototype.set = function (id) {
+        this.page_id = 'pag_' + id;
+        this.variable = id;
+    };
+    registerMetodos.prototype.get = function () {
+        return this.page_id;
+    };
+    registerMetodos.prototype.getDataNotation = function () {
+        return this.variable;
+    };
+    registerMetodos.prototype.getSizeNotation = function () {
+        return this.page_id + '.pageSize';
+    };
+    registerMetodos.prototype.getPagesNotation = function () {
+        return this.page_id + '.pages';
+    };
+    registerMetodos.prototype.getDataLengthNotation = function () {
+        return this.page_id + '.dataLength';
+    };
+    registerMetodos.prototype.getCurrentNotation = function () {
+        return this.page_id + '.pageCurrent';
+    };
+
+    registerMetodos.prototype.getNextNotation = function () {
+        return this.page_id + '.nextPage';
+    };
+    registerMetodos.prototype.getBeforeNotation = function () {
+        return this.page_id + '.beforePage';
+    };
+    registerMetodos.prototype.getSearchNotation = function () {
+        return this.variable + '_search';
+    };
+
+    return function () {
+        return $injector.instantiate(registerMetodos);
+    };
+}]);
 miniapp.directive('mmButton', ['$compile', function ($compile) {
     return {
         terminal: true, // si la directiva tiene internamente otras directivas
@@ -78,17 +196,31 @@ miniapp.directive('mmInput', ['$compile', '$parse', function ($compile, $parse) 
                 var estilo = attrs.style !== undefined ? attrs.style : '';
                 var placeholder = attrs.placeholder !== undefined ? attrs.placeholder : '';
 
+                var extraAttrs = "";
+
                 var modelo = attrs.ngModel;
-                if (modelo === null || modelo === undefined || modelo === '') {
-                    throw "mm-input Requiere obligatoriamente ngModel";
+                var search = attrs.paginationSearch;
+                if ((modelo === null || modelo === undefined || modelo === '') &&
+                    (search === null || search === undefined || search === '')) {
+                    throw "mm-input requiere obligatoriamente ngModel or paginationSearch\n";
+                } else if (modelo != undefined && modelo !== '' && modelo !== null &&
+                    search !== undefined && search !== '' && search !== null) {
+                    throw "mm-input (paginationSearch and ngModel) ambas directivas no son permitidas a la vez\n";
                 }
+
+                if (search !== undefined || search !== '') {
+                    // $parse(search).assign(scope, '');
+                    extraAttrs += 'pagination-search="' + search + '"';
+                } else {
+                    extraAttrs += 'ng-model="' + modelo + '"';
+                }
+
 
                 var value = attrs.ngModel;
                 if (tipo === 'password') {
                     value += " | secreto"
                 }
 
-                var extraAttrs = "";
                 if (tipo === 'number') {
                     var min = attrs.min, max = attrs.max, step = attrs.step;
                     if (angular.isNumber(min)) {
@@ -133,7 +265,7 @@ miniapp.directive('mmInput', ['$compile', '$parse', function ($compile, $parse) 
                     '<div class="form-group" style="' + estilo + '">' +
                     '<div class="input-group">' +
                     // '<input id="txt_' + modelo + '" type="' + tipo + '" ng-model="' + modelo + '" name="txt_' + modelo + '" value="" onchange="this.setAttribute("value", this.value);" class="form-control" />' +
-                    '<input id="txt_' + modelo + '" type="' + tipo + '" ng-model="' + modelo + '" name="txt_' + modelo + '" value="{{' + value + '}}" class="form-control" ' + extraAttrs + '/>' +
+                    '<input id="txt_' + modelo + '" type="' + tipo + '" name="txt_' + modelo + '" value="{{' + value + '}}" class="form-control" ' + extraAttrs + '/>' +
                     '<label for="txt_' + modelo + '">' + placeholder + '</label>' +
                     '<line class="line"></line>' +
                     '</div>' +
@@ -158,7 +290,7 @@ miniapp.directive('mmTextarea', ['$compile', function ($compile) {
 
                 var modelo = attrs.ngModel;
                 if (modelo === null || modelo === undefined || modelo === '') {
-                    throw "mm-input Requiere obligatoriamente ngModel";
+                    throw "mm-textarea Requiere obligatoriamente ngModel";
                 }
 
                 var placeholder = attrs.placeholder !== undefined ? attrs.placeholder : '';
@@ -249,6 +381,212 @@ miniapp.directive('mmLoader', ['$compile', function ($compile) {
     };
 }]);
 
+miniapp.directive('ngPaginationControl', ['$compile', '$parse', '$paginationRegister', function ($compile, $parse, $paginationRegister) {
+    'use strict';
+    return {
+        priority: 10,
+        restrict: 'E',
+        scope: false,
+
+        compile: function (element, attrs) {
+            var registro = new $paginationRegister();
+            if (element.attr('pagination-id') === undefined || element.attr('pagination-id') === '') {
+                throw "directiva NG-PAGINATION-CONTROL requiere atributo pagination-id\n";
+            } else {
+                registro.set(element.attr('pagination-id'));
+            }
+
+            // COMPILE RETURNED LINKED
+            return function (scope, element, atributos) {
+                var dataNotation = registro.getDataNotation();
+                var resultados = filtrar($parse(dataNotation)(scope), $parse(registro.getSearchNotation())(scope));
+                var controls = angular.element('<div class="pagination-panel">' +
+                    '<button ng-click="' + registro.getBeforeNotation() + '()" type="button"' +
+                    'ng-disabled="' + registro.getCurrentNotation() + '<=0">Anterior</button>' +
+
+                    '<small class="indicator">{{' + registro.getCurrentNotation() + '+1}}/{{' + registro.getPagesNotation() + '}}</small>' +
+
+                    '<button ng-click="' + registro.getNextNotation() + '()" type="button"' +
+                    'ng-disabled="' + registro.getCurrentNotation() + '>=(' + registro.getDataLengthNotation() + '/' + registro.getSizeNotation() + ')-1">Siguiente</button>' +
+                    '</div>');
+
+                $parse(registro.getBeforeNotation()).assign(scope, function () {
+                    var actual = $parse(registro.getCurrentNotation())(scope);
+                    actual = actual - 1;
+                    $parse(registro.getCurrentNotation()).assign(scope, actual);
+                });
+
+                $parse(registro.getNextNotation()).assign(scope, function () {
+                    var actual = $parse(registro.getCurrentNotation())(scope);
+                    actual = actual + 1;
+                    $parse(registro.getCurrentNotation()).assign(scope, actual);
+                });
+
+                $compile(controls)(scope);
+                element.replaceWith(controls);
+            };
+        }
+    };
+}]);
+miniapp.directive('paginationSearch', ['$compile', '$parse', '$paginationRegister', function ($compile, $parse, $paginationRegister) {
+    'use strict';
+    return {
+        priority: 5,
+        restrict: 'A',
+        scope: false,
+
+        compile: function (iElement, iAttrs) {
+            var registro = new $paginationRegister();
+
+            var elementName = iElement[0].localName.toLowerCase();
+
+            // ESTA DIRECTIVA SOLO PUEDE SER USADA POR UN ELEMENTO INPUT
+            // if (elementName != 'input') {
+            //     throw "Directive pagination-search solo se puede usar por elemento input\n";
+            // }
+            var atributo = iElement.attr('pagination-search');
+            if (atributo === undefined || atributo === '') {
+                throw "Directive pagination-search not value\n";
+            } else {
+                registro.set(atributo);
+            }
+
+            return function (scope, element, attrs) {
+                var modelo = registro.getSearchNotation();
+                element.attr('ng-model', modelo);
+                element.removeAttr('pagination-search');
+
+                // EVENTO WATCH PARA EL CAMBIO DEL INPUT EN BUSQUEDA
+                var dataNotation = registro.getDataNotation();
+                var tempDataNotation = dataNotation + '_tmp';
+                $parse(modelo).assign(scope, '');
+
+                scope.$watch(modelo, function () {
+                    // CAPTURANDO EL VALOR DEL INPUT
+                    var paginas = 0;
+                    var filtro = $parse(modelo)(scope);
+                    // AL MOMENTO DE BUSQUEDA MANDAR EL CURRENT PAGE A 0 PARA QUE SE VAYA A LA PRIMERA PAGINA
+                    $parse(registro.getCurrentNotation()).assign(scope, 0);
+                    if (filtro === undefined || filtro === '') {
+                        paginas = Number(getPaginas($parse(dataNotation)(scope), $parse(registro.getSizeNotation())(scope)));
+                        $parse(registro.getDataLengthNotation()).assign(scope, ($parse(dataNotation)(scope) !== undefined ? $parse(dataNotation)(scope).length : 0));
+                    } else {
+                        var resultados = filtrar($parse(dataNotation)(scope), filtro);
+                        paginas = Number(getPaginas(resultados, $parse(registro.getSizeNotation())(scope)));
+                        $parse(registro.getDataLengthNotation()).assign(scope, resultados.length);
+                    }
+
+                    if (paginas > 0 && paginas !== undefined) {
+                        $parse(registro.getPagesNotation()).assign(scope, paginas);
+                    } else {
+                        $parse(registro.getPagesNotation()).assign(scope, 1);
+                    }
+                });
+
+                if (elementName == 'input') {
+                    $compile(element)(scope);
+                }
+            };
+        }
+    };
+}]);
+miniapp.directive('mmPagination', ['$compile', '$parse', '$paginationRegister', function ($compile, $parse, $paginationRegister) {
+    'use strict';
+
+    function getVarname(RepeatValue) {
+        'use strict';
+        var variable = RepeatValue.replace(' in ', '~');
+        variable = variable.replace(' | ', '~');
+        variable = variable.replace('|', '~');
+        variable = variable.split('~');
+        return variable[1].replace(' ', '');
+    };
+    return {
+        priority: 20,
+        multiElement: true,
+        terminal: true, // NOS SIRVE POR SI TENEMOS OTRA DIRECTIVA DENTRO DEL  NG-REPEAT
+        restrict: 'A', // RESTRINGIDO SOLO A ATTRIBUTO
+        scope: false, // NOS DICE QUE EL SCOPE ES EL MISMO DEL CONTROLADOR
+
+        compile: function (tElement, tAttrs) {
+            // COMPILE RETURNED LINKED
+            return function (scope, element, attr) {
+                var registro = new $paginationRegister();
+                var dataNotation = getVarname(element.attr('mm-pagination'));
+                registro.set(dataNotation);
+                $parse(registro.get()).assign(scope, { pageCurrent: 0, pageSize: 5, pages: 1, dataLength: 1, nextPage: function () { }, beforePage: function () { } });
+
+                // AGREGANDO ng-repeat Y QUITANDO ng-pagination PARA EVITAR LOOP
+                element.attr('mm-pagination', element.attr('mm-pagination') + " | pagFilter:" + registro.getSearchNotation());
+                element.attr('mm-pagination', element.attr('mm-pagination') + " | startFrom:" + registro.getCurrentNotation() + "*" + registro.getSizeNotation() + " | limitTo:" + registro.getSizeNotation());
+                element.attr('ng-repeat', element.attr('mm-pagination'));
+                element.removeAttr('mm-pagination');
+
+                // NUMERO DE DATOS POR PAGINA
+                var size = Number(element.attr('pagination-size')) + 0;
+                if (angular.isDefined(size) && angular.isNumber(size) && size > 0) {
+                    $parse(registro.getSizeNotation()).assign(scope, Number(size));
+                }
+
+                // NUMERO DE PAGINAS
+                var paginas = getPaginas($parse(dataNotation)(scope), $parse(registro.getSizeNotation())(scope));
+                if (paginas !== undefined && paginas !== '') {
+                    $parse(registro.getPagesNotation()).assign(scope, Number(paginas));
+                }
+
+                // EVENTO WATCH PARA CUANDO CAMBIA LA VARIABLE DE LOS DATOS
+                scope.$watch(dataNotation, function () {
+                    var data = $parse(dataNotation)(scope);
+                    if (data === undefined) {
+                        console.log('mm-pagination Mensaje: No hay datos');
+                    } else {
+                        var paginas = Number(getPaginas(data, $parse(registro.getSizeNotation())(scope)));
+                        if (paginas > 0) {
+                            $parse(registro.getPagesNotation()).assign(scope, paginas);
+                        } else {
+                            $parse(registro.getPagesNotation()).assign(scope, 1);
+                        }
+                        $parse(registro.getDataLengthNotation()).assign(scope, data.length);
+                    }
+                });
+                $compile(element)(scope);
+            };
+        }
+    };
+}]);
+miniapp.directive('mmSwitch', ['$compile', function ($compile) {
+    return {
+        terminal: true,
+        scope: false,
+        restrict: 'E',
+        // require: '?ngModel',
+        compile: function (tElement, tAttrs) {
+            return function Linked(scope, elemento, attrs) {
+                var estilo = attrs.style !== undefined ? attrs.style : '';
+
+                var modelo = attrs.ngModel;
+                if (modelo === null || modelo === undefined || modelo === '') {
+                    throw "mm-switch Requiere obligatoriamente ngModel";
+                }
+
+                var label = attrs.label !== undefined ? attrs.label : '';
+
+                var template = angular.element(
+                    '<div class="mmswitch-container">' +
+                    '<click style="cursor:pointer;" ng-click="' + modelo + '=!' + modelo + '">' + label + '</click>' +
+                    '<div class="mmswitch" >' +
+                    '<input id="sw_' + modelo + '" ng-model="' + modelo + '" type="checkbox" />' +
+                    '<label for="sw_' + modelo + '" class="label-primary"></label>' +
+                    '</div >' +
+                    '</div >'
+                );
+
+                $compile(template)(scope);
+                elemento.replaceWith(template);
+            }
+        }
+    }
+}]);
 miniapp.service('$mmSnackbar', [function () {
     var body = angular.element(document.body);
     var time = 3000;
@@ -318,39 +656,6 @@ miniapp.service('$mmSnackbar', [function () {
                 case "bottom-right":
                     CreateStyle('.snackbar-wrapper { bottom: 30px; right:30px; margin:0; }');
                     break;
-            }
-        }
-    }
-}]);
-miniapp.directive('mmSwitch', ['$compile', function ($compile) {
-    return {
-        terminal: true,
-        scope: false,
-        restrict: 'E',
-        // require: '?ngModel',
-        compile: function (tElement, tAttrs) {
-            return function Linked(scope, elemento, attrs) {
-                var estilo = attrs.style !== undefined ? attrs.style : '';
-
-                var modelo = attrs.ngModel;
-                if (modelo === null || modelo === undefined || modelo === '') {
-                    throw "mm-switch Requiere obligatoriamente ngModel";
-                }
-
-                var label = attrs.label !== undefined ? attrs.label : '';
-
-                var template = angular.element(
-                    '<div class="mmswitch-container">' +
-                    '<click style="cursor:pointer;" ng-click="' + modelo + '=!' + modelo + '">' + label + '</click>' +
-                    '<div class="mmswitch" >' +
-                    '<input id="sw_' + modelo + '" ng-model="' + modelo + '" type="checkbox" />' +
-                    '<label for="sw_' + modelo + '" class="label-primary"></label>' +
-                    '</div >' +
-                    '</div >'
-                );
-
-                $compile(template)(scope);
-                elemento.replaceWith(template);
             }
         }
     }

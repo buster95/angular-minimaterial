@@ -35,14 +35,14 @@ miniapp.directive('mmInput', ['$compile', '$parse', function ($compile, $parse) 
                 }
 
                 if (search !== undefined || search !== '') {
-                    // $parse(search).assign(scope, '');
+                    $parse(search + '_search').assign(scope, '');
                     extraAttrs += 'pagination-search="' + search + '"';
                 } else {
                     extraAttrs += 'ng-model="' + modelo + '"';
                 }
 
 
-                var value = attrs.ngModel;
+                var value = modelo !== undefined ? modelo : search + '_search';
                 if (tipo === 'password') {
                     value += " | secreto"
                 }

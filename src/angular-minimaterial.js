@@ -209,14 +209,14 @@ miniapp.directive('mmInput', ['$compile', '$parse', function ($compile, $parse) 
                 }
 
                 if (search !== undefined || search !== '') {
-                    // $parse(search).assign(scope, '');
+                    $parse(search + '_search').assign(scope, '');
                     extraAttrs += 'pagination-search="' + search + '"';
                 } else {
                     extraAttrs += 'ng-model="' + modelo + '"';
                 }
 
 
-                var value = attrs.ngModel;
+                var value = modelo !== undefined ? modelo : search + '_search';
                 if (tipo === 'password') {
                     value += " | secreto"
                 }
@@ -554,39 +554,6 @@ miniapp.directive('mmPagination', ['$compile', '$parse', '$paginationRegister', 
         }
     };
 }]);
-miniapp.directive('mmSwitch', ['$compile', function ($compile) {
-    return {
-        terminal: true,
-        scope: false,
-        restrict: 'E',
-        // require: '?ngModel',
-        compile: function (tElement, tAttrs) {
-            return function Linked(scope, elemento, attrs) {
-                var estilo = attrs.style !== undefined ? attrs.style : '';
-
-                var modelo = attrs.ngModel;
-                if (modelo === null || modelo === undefined || modelo === '') {
-                    throw "mm-switch Requiere obligatoriamente ngModel";
-                }
-
-                var label = attrs.label !== undefined ? attrs.label : '';
-
-                var template = angular.element(
-                    '<div class="mmswitch-container">' +
-                    '<click style="cursor:pointer;" ng-click="' + modelo + '=!' + modelo + '">' + label + '</click>' +
-                    '<div class="mmswitch" >' +
-                    '<input id="sw_' + modelo + '" ng-model="' + modelo + '" type="checkbox" />' +
-                    '<label for="sw_' + modelo + '" class="label-primary"></label>' +
-                    '</div >' +
-                    '</div >'
-                );
-
-                $compile(template)(scope);
-                elemento.replaceWith(template);
-            }
-        }
-    }
-}]);
 miniapp.service('$mmSnackbar', [function () {
     var body = angular.element(document.body);
     var time = 3000;
@@ -656,6 +623,39 @@ miniapp.service('$mmSnackbar', [function () {
                 case "bottom-right":
                     CreateStyle('.snackbar-wrapper { bottom: 30px; right:30px; margin:0; }');
                     break;
+            }
+        }
+    }
+}]);
+miniapp.directive('mmSwitch', ['$compile', function ($compile) {
+    return {
+        terminal: true,
+        scope: false,
+        restrict: 'E',
+        // require: '?ngModel',
+        compile: function (tElement, tAttrs) {
+            return function Linked(scope, elemento, attrs) {
+                var estilo = attrs.style !== undefined ? attrs.style : '';
+
+                var modelo = attrs.ngModel;
+                if (modelo === null || modelo === undefined || modelo === '') {
+                    throw "mm-switch Requiere obligatoriamente ngModel";
+                }
+
+                var label = attrs.label !== undefined ? attrs.label : '';
+
+                var template = angular.element(
+                    '<div class="mmswitch-container">' +
+                    '<click style="cursor:pointer;" ng-click="' + modelo + '=!' + modelo + '">' + label + '</click>' +
+                    '<div class="mmswitch" >' +
+                    '<input id="sw_' + modelo + '" ng-model="' + modelo + '" type="checkbox" />' +
+                    '<label for="sw_' + modelo + '" class="label-primary"></label>' +
+                    '</div >' +
+                    '</div >'
+                );
+
+                $compile(template)(scope);
+                elemento.replaceWith(template);
             }
         }
     }

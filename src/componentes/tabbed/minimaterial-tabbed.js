@@ -21,7 +21,7 @@ miniapp.directive('mmTabbed', [function () {
                 this.removeActive();
                 angular.forEach(tabs, function (tab) {
                     var href = tab.firstChild.getAttribute('data-target');
-                    console.log(href, name);
+                    // console.log(href, name);
                     if (href === name) {
                         var target = tab.firstChild.getAttribute('data-target').substr(1);
                         var content = document.getElementById(target);

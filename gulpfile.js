@@ -22,14 +22,14 @@ gulp.task('default', function () {
 
 gulp.task('js_task', function () {
     gulp.src(dirjs)
-        .pipe(sourcemaps.init())
         .pipe(plumber())
         .pipe(concat('angular-minimaterial.js'))
-        .pipe(gulp.dest('./src/'))
+        .pipe(gulp.dest('./'))
         .pipe(jsmin())
+        .pipe(sourcemaps.init())
         .pipe(concat('angular-minimaterial.min.js'))
         .pipe(sourcemaps.write('./'))
-        .pipe(gulp.dest('./src/'))
+        .pipe(gulp.dest('./'))
         .pipe(gulp.dest('./docs/'));
 });
 
@@ -39,9 +39,9 @@ gulp.task('css_task', function () {
         .pipe(concat('angular-minimaterial.less'))
         .pipe(less())
         .pipe(concat('angular-minimaterial.css'))
-        .pipe(gulp.dest('./src/'))
+        .pipe(gulp.dest('./'))
         .pipe(cssmin())
         .pipe(concat('angular-minimaterial.min.css'))
-        .pipe(gulp.dest('./src/'))
+        .pipe(gulp.dest('./'))
         .pipe(gulp.dest('./docs/'));
 });

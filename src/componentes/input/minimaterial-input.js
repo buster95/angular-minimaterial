@@ -61,7 +61,7 @@ miniapp.directive('mmInput', ['$compile', '$parse', function ($compile, $parse) 
                     }
 
                     scope.$watch(modelo, function (newvalue, currentvalue) {
-                        console.log(newvalue, currentvalue);
+                        // console.log(newvalue, currentvalue);
                         if (newvalue === undefined) {
                             if (angular.isNumber(min)) {
                                 $parse(modelo).assign(scope, Number(min));

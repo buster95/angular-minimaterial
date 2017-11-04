@@ -11,7 +11,7 @@ miniapp.directive('mmTab', [function () {
             element.on('click', function (evt) {
                 evt.preventDefault();
                 var id = element[0].firstChild.getAttribute('data-target');
-                console.log(id);
+                // console.log(id);
                 tabbed.selectTab(id);
 
                 // var id = element[0].firstChild.getAttribute('data-target');

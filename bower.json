@@ -17,7 +17,8 @@
     "bower_components",
     "test",
     "tests",
-    "docs"
+    "docs",
+    "src"
   ],
   "dependencies": {
     "bootstrap": "^3.3.7"

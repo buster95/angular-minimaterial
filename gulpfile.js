@@ -12,7 +12,10 @@ var dirjs = [
     "src/componentes/**/*.js"
 ];
 var cssdir = [
-    'src/componentes/minimaterial.less',
+    // 'src/componentes/minimaterial-colors.less',
+    // 'src/componentes/minimaterial-functions.less',
+    // 'src/componentes/minimaterial.less',
+    'src/componentes/*.less',
     'src/componentes/**/*.less'
 ];
 gulp.task('default', function () {
@@ -23,6 +26,7 @@ gulp.task('default', function () {
 gulp.task('js_task', function () {
     gulp.src(dirjs)
         .pipe(plumber())
+        .pipe(jsx())
         .pipe(concat('angular-minimaterial.js'))
         .pipe(gulp.dest('./'))
         .pipe(jsmin())
@@ -36,8 +40,8 @@ gulp.task('js_task', function () {
 gulp.task('css_task', function () {
     gulp.src(cssdir)
         .pipe(plumber())
-        .pipe(concat('angular-minimaterial.less'))
         .pipe(less())
+        // .pipe(concat('angular-minimaterial.less'))
         .pipe(concat('angular-minimaterial.css'))
         .pipe(gulp.dest('./'))
         .pipe(cssmin())

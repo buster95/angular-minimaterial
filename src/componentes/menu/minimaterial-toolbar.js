@@ -1,7 +1,8 @@
+function toggleActive(el) {
+    angular.element(el).toggleClass('active');
+}
+
 (function () {
-    function ToggleClass(element) {
-        $(element).toggleClass('active');
-    }
     miniapp.directive('mmToolbar', [function () {
         return {
             priority: 5,
@@ -9,23 +10,31 @@
             terminal: false,
             replace: true,
             restrict: 'E',
+            require: '^mmLayout',
             scope: {
                 title: '@'
             },
-            compile: function (tElement, tAttrs) {
-                return function Linked(scope, elemento, attrs) {
-                }
-            },
+            // compile: function (tElement, tAttrs) {
+            //     var elemento = angular.element(document.querySelector('.toolbar-hamburguer'));
+            //     elemento.bind('click', function () {
+            //         console.log(elemento);
+            //         // elemento.toggleClass('active');
+            //     });
+            //     // return function Linked(scope, elemento, attrs) {
+            //     // }
+            // },
             template:
-                <nav class="toolbar">
-                    <span class="toolbar-title">{{ title }}</span>
-                    <div class="toolbar-hamburguer" onclick="ToggleClass(this);">
-                        <i></i>
-                        <i></i>
-                        <i></i>
+                <header class="toolbar">
+                    <div className="toolbar-title">
+                        <div class="toolbar-hamburguer" onclick="toggleActive(this);">
+                            <i></i>
+                            <i></i>
+                            <i></i>
+                        </div>
+                        <span>{{ title }}</span>
                     </div>
-                    <ul ng-transclude></ul>
-                </nav>
+                    <nav class="toolbar-item-container" ng-transclude></nav>
+                </header>
         }
     }]);
 })();

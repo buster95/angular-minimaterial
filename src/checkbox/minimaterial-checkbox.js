@@ -19,6 +19,21 @@ miniapp.directive('mmCheckbox', ['$compile', function ($compile) {
                     '</div>' +
                     '</div>');
 
+                // const template =
+                //     <div class="form-group">
+                //         <div class="checkbox">
+                //             <input id="chk_{modelo}" ng-model="'{modelo}'" type="checkbox" />
+                //             <label for="chk_' + modelo + '"> {label} </label>
+                //         </div>
+                //     </div>;
+
+                // var nombre = "walter";
+                // const tpl2 = (
+                //     <h1>
+                //         Hello, {nombre}!
+                //     </h1>
+                // );
+
                 $compile(template)(scope);
                 elemento.replaceWith(template);
             }

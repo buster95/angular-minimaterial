@@ -1,3 +1,19 @@
+Boolean.Convert = function (value) {
+    if (typeof (value) === 'string') {
+        value = value.toLocaleLowerCase();
+    }
+    switch (value) {
+        case '1':
+        case 1:
+        case 'true':
+        case true:
+        case 'on':
+        case 'yes':
+            return true;
+        default:
+            return false;
+    }
+}
 var miniapp = angular.module('ngMiniMaterial', []);
 
 angular.isNumber = function (num) {
@@ -135,6 +151,60 @@ miniapp.service('$paginationRegister', ['$injector', function ($injector) {
         return $injector.instantiate(registerMetodos);
     };
 }]);
+miniapp.directive('mmButton', ['$compile', function ($compile) {
+    return {
+        terminal: true, // si la directiva tiene internamente otras directivas
+        scope: false, // utilizar el scope actual
+        transclude: true, // Es para traspasar atributos y elementos internos de la directiva
+        replace: true, // reemplazar directiva por el template
+        restrict: 'E', // solo elemento
+        template:
+            "<button class=\"btn ripple\" ng-transclude></button>"
+    }
+}]);
+miniapp.directive('mmCheckbox', ['$compile', function ($compile) {
+    return {
+        terminal: true,
+        scope: false,
+        restrict: 'E',
+        compile: function (tElement, tAttrs) {
+            return function Linked(scope, elemento, attrs) {
+                var modelo = attrs.ngModel;
+                if (modelo === null || modelo === undefined || modelo === '') {
+                    throw "mm-checkbox Requiere obligatoriamente ngModel";
+                }
+
+                var label = attrs.label !== undefined ? attrs.label : '';
+
+                var template = angular.element('<div class="form-group">' +
+                    '<div class="checkbox">' +
+                    '<input id="chk_' + modelo + '" ng-model="' + modelo + '" type="checkbox">' +
+                    '<label for="chk_' + modelo + '">' + label + '</label>' +
+                    '</div>' +
+                    '</div>');
+
+                // const template =
+                //     <div class="form-group">
+                //         <div class="checkbox">
+                //             <input id="chk_{modelo}" ng-model="'{modelo}'" type="checkbox" />
+                //             <label for="chk_' + modelo + '"> {label} </label>
+                //         </div>
+                //     </div>;
+
+                // var nombre = "walter";
+                // const tpl2 = (
+                //     <h1>
+                //         Hello, {nombre}!
+                //     </h1>
+                // );
+
+                $compile(template)(scope);
+                elemento.replaceWith(template);
+            }
+        }
+    }
+}]);
+
 miniapp.filter('secreto', [function () {
     return function (input) {
         if (input !== undefined && input !== null) {
@@ -308,33 +378,6 @@ miniapp.directive('mmTextarea', ['$compile', function ($compile) {
         }
     }
 }]);
-miniapp.directive('mmCheckbox', ['$compile', function ($compile) {
-    return {
-        terminal: true,
-        scope: false,
-        restrict: 'E',
-        compile: function (tElement, tAttrs) {
-            return function Linked(scope, elemento, attrs) {
-                var modelo = attrs.ngModel;
-                if (modelo === null || modelo === undefined || modelo === '') {
-                    throw "mm-checkbox Requiere obligatoriamente ngModel";
-                }
-
-                var label = attrs.label !== undefined ? attrs.label : '';
-
-                var template = angular.element('<div class="form-group">' +
-                    '<div class="checkbox">' +
-                    '<input id="chk_' + modelo + '" ng-model="' + modelo + '" type="checkbox">' +
-                    '<label for="chk_' + modelo + '">' + label + '</label>' +
-                    '</div>' +
-                    '</div>');
-
-                $compile(template)(scope);
-                elemento.replaceWith(template);
-            }
-        }
-    }
-}]);
 miniapp.directive('mmLoader', ['$compile', function ($compile) {
     return {
         terminal: true,
@@ -374,6 +417,92 @@ miniapp.directive('mmLoader', ['$compile', function ($compile) {
         }
     };
 }]);
+(function () {
+    miniapp.directive('mmLayout', [function () {
+        return {
+            priority: 0,
+            transclude: true,
+            terminal: false,
+            replace: true,
+            restrict: 'E',
+            template:
+                "<div class=\"layout\" ng-transclude>\n</div>"
+        }
+    }]);
+})();
+
+(function () {
+    miniapp.directive('mmToolbarItem', [function () {
+        return {
+            priority: 0,
+            transclude: true,
+            terminal: false,
+            replace: true,
+            restrict: 'E',
+            require: '^mmToolbar',
+            scope: {
+                href: '@',
+                icon: '@'
+            },
+            compile: function (tElement, tAttrs) {
+            },
+            link: function (scope, element, attrs) {
+                console.log(scope);
+            },
+            template:
+                "<a ng-class=\"icon ? 'toolbar-icon' : 'toolbar-item'\" ng-transclude></a>"
+        }
+    }]);
+})();
+function toggleActive(el) {
+    angular.element(el).toggleClass('active');
+}
+
+(function () {
+    miniapp.directive('mmToolbar', ['$compile', function ($compile) {
+        return {
+            priority: 5,
+            transclude: true,
+            terminal: false,
+            replace: true,
+            restrict: 'E',
+            // require: 'mmLayout',
+            scope: {
+                title: '@'
+            },
+            compile: function (tElement, tAttrs) {
+                return function Link(scope, element, attrs) {
+                    var elemento = element[0];
+                    var sticky = Boolean.Convert(tAttrs.sticky);
+                    var elpos = elemento.offsetTop;
+                    var elHeight = elemento.offsetHeight;
+
+                    console.log(elemento);
+                    if (sticky === true) {
+                        window.onresize = function (e) {
+                            elpos = elemento.offsetTop;
+                        }
+                        window.onscroll = function (evt) {
+                            var scroll = evt.pageY;
+                            if (scroll >= elpos) {
+                                element.addClass('sticky');
+                                angular.element(document.body).css('padding-top', elHeight + 'px');
+                            } else {
+                                element.removeClass('sticky');
+                                angular.element(document.body).css('padding-top', '0px');
+                            }
+                            // console.log("desplazandose...");
+                            // console.log(evt.pageY);
+                            // console.log(elpos);
+                        };
+                    }
+                }
+            },
+            template:
+                "<div class=\"toolbar\">\n    <div class=\"toolbar-title\">\n        <div class=\"toolbar-hamburguer\" onclick=\"toggleActive(this);\">\n            <i></i>\n            <i></i>\n            <i></i>\n        </div>\n        <span>{{ title }}</span>\n    </div>\n    <nav class=\"toolbar-item-container\" ng-transclude></nav>\n</div>"
+        }
+    }]);
+})();
 miniapp.directive('ngPaginationControl', ['$compile', '$parse', '$paginationRegister', function ($compile, $parse, $paginationRegister) {
     'use strict';
     return {
@@ -547,6 +676,79 @@ miniapp.directive('mmPagination', ['$compile', '$parse', '$paginationRegister', 
         }
     };
 }]);
+miniapp.service('$mmSnackbar', [function () {
+    var body = angular.element(document.body);
+    var time = 3000;
+
+    var wrapper = angular.element('<div class="snackbar-wrapper" id="snack1"><div>');
+    body.append(wrapper);
+
+    function CreateSnackbar(tpl) {
+        wrapper.append(tpl);
+        // tpl.removeClass('hide');
+        tpl.addClass('show');
+        setTimeout(function () {
+            tpl.addClass('hide');
+            // tpl.removeClass('show');
+        }, time);
+
+        setTimeout(function () {
+            tpl.remove();
+        }, time + 450);
+    }
+
+    function CreateStyle(sty) {
+        body.append(
+            '<style type="text/css">' + sty + '</style>'
+        );
+    }
+
+    return {
+        success: function (message) {
+            var template = angular.element(
+                '<div class="snackbar snackbar-success">' + message +
+                '</div>'
+            );
+            CreateSnackbar(template);
+        },
+        info: function (message) {
+            var template = angular.element(
+                '<div class="snackbar snackbar-info">' + message +
+                '</div>'
+            );
+            CreateSnackbar(template);
+        },
+        warning: function (message) {
+            var template = angular.element(
+                '<div class="snackbar snackbar-warning">' + message +
+                '</div>'
+            );
+            CreateSnackbar(template);
+        },
+        error: function (message) {
+            var template = angular.element(
+                '<div class="snackbar snackbar-error">' + message +
+                '</div>'
+            );
+            CreateSnackbar(template);
+        },
+        setTime: function (tiempo) {
+            time = tiempo;
+            return this;
+        },
+        setPosition: function (position) {
+            position = position.toLowerCase();
+            switch (position) {
+                case "bottom-left":
+                    CreateStyle('.snackbar-wrapper { bottom: 30px; left:30px; margin:0; }');
+                    break;
+                case "bottom-right":
+                    CreateStyle('.snackbar-wrapper { bottom: 30px; right:30px; margin:0; }');
+                    break;
+            }
+        }
+    }
+}]);
 miniapp.directive('mmSwitch', ['$compile', function ($compile) {
     return {
         terminal: true,
@@ -578,16 +780,6 @@ miniapp.directive('mmSwitch', ['$compile', function ($compile) {
                 elemento.replaceWith(template);
             }
         }
-    }
-}]);
-miniapp.directive('mmButton', ['$compile', function ($compile) {
-    return {
-        terminal: true, // si la directiva tiene internamente otras directivas
-        scope: false, // utilizar el scope actual
-        transclude: true, // Es para traspasar atributos y elementos internos de la directiva
-        replace: true, // reemplazar directiva por el template
-        template: '<button class="btn ripple" ng-transclude></button>',
-        restrict: 'E' // solo elemento
     }
 }]);
 miniapp.directive('mmTab', [function () {
@@ -678,143 +870,3 @@ miniapp.directive('mmTabbedContent', [function () {
         template: '<div class="tab-content" ng-transclude=""> </div>'
     }
 }]);
-miniapp.service('$mmSnackbar', [function () {
-    var body = angular.element(document.body);
-    var time = 3000;
-
-    var wrapper = angular.element('<div class="snackbar-wrapper" id="snack1"><div>');
-    body.append(wrapper);
-
-    function CreateSnackbar(tpl) {
-        wrapper.append(tpl);
-        // tpl.removeClass('hide');
-        tpl.addClass('show');
-        setTimeout(function () {
-            tpl.addClass('hide');
-            // tpl.removeClass('show');
-        }, time);
-
-        setTimeout(function () {
-            tpl.remove();
-        }, time + 450);
-    }
-
-    function CreateStyle(sty) {
-        body.append(
-            '<style type="text/css">' + sty + '</style>'
-        );
-    }
-
-    return {
-        success: function (message) {
-            var template = angular.element(
-                '<div class="snackbar snackbar-success">' + message +
-                '</div>'
-            );
-            CreateSnackbar(template);
-        },
-        info: function (message) {
-            var template = angular.element(
-                '<div class="snackbar snackbar-info">' + message +
-                '</div>'
-            );
-            CreateSnackbar(template);
-        },
-        warning: function (message) {
-            var template = angular.element(
-                '<div class="snackbar snackbar-warning">' + message +
-                '</div>'
-            );
-            CreateSnackbar(template);
-        },
-        error: function (message) {
-            var template = angular.element(
-                '<div class="snackbar snackbar-error">' + message +
-                '</div>'
-            );
-            CreateSnackbar(template);
-        },
-        setTime: function (tiempo) {
-            time = tiempo;
-            return this;
-        },
-        setPosition: function (position) {
-            position = position.toLowerCase();
-            switch (position) {
-                case "bottom-left":
-                    CreateStyle('.snackbar-wrapper { bottom: 30px; left:30px; margin:0; }');
-                    break;
-                case "bottom-right":
-                    CreateStyle('.snackbar-wrapper { bottom: 30px; right:30px; margin:0; }');
-                    break;
-            }
-        }
-    }
-}]);
-(function () {
-    miniapp.directive('mmLayout', [function () {
-        return {
-            priority: 10,
-            transclude: true,
-            terminal: false,
-            replace: true,
-            restrict: 'E',
-            template:
-                "<div class=\"layout\" ng-transclude>\n</div>"
-        }
-    }]);
-})();
-
-(function () {
-    miniapp.directive('mmToolbarItem', [function () {
-        return {
-            priority: 0,
-            transclude: true,
-            terminal: false,
-            replace: true,
-            restrict: 'E',
-            require: '^mmToolbar',
-            scope: {
-                href: '@',
-                icon: '@'
-            },
-            compile: function (tElement, tAttrs) {
-            },
-            link: function (scope, element, attrs) {
-                console.log(scope);
-            },
-            template:
-                "<a ng-class=\"icon ? 'toolbar-icon' : 'toolbar-item'\" ng-transclude></a>"
-        }
-    }]);
-})();
-function toggleActive(el) {
-    angular.element(el).toggleClass('active');
-}
-
-(function () {
-    miniapp.directive('mmToolbar', [function () {
-        return {
-            priority: 5,
-            transclude: true,
-            terminal: false,
-            replace: true,
-            restrict: 'E',
-            require: '^mmLayout',
-            scope: {
-                title: '@'
-            },
-            // compile: function (tElement, tAttrs) {
-            //     var elemento = angular.element(document.querySelector('.toolbar-hamburguer'));
-            //     elemento.bind('click', function () {
-            //         console.log(elemento);
-            //         // elemento.toggleClass('active');
-            //     });
-            //     // return function Linked(scope, elemento, attrs) {
-            //     // }
-            // },
-            template:
-                "<header class=\"toolbar\">\n    <div class=\"toolbar-title\">\n        <div class=\"toolbar-hamburguer\" onclick=\"toggleActive(this);\">\n            <i></i>\n            <i></i>\n            <i></i>\n        </div>\n        <span>{{ title }}</span>\n    </div>\n    <nav class=\"toolbar-item-container\" ng-transclude></nav>\n</header>"
-        }
-    }]);
-})();

@@ -2,7 +2,7 @@
 @import "../minimaterial-colors.less";
 .layout {
     .toolbar {
-        .sombra();
+        box-sizing: unset;
         display: flex;
         flex-flow: row nowrap;
         // flex-direction: row;
@@ -11,6 +11,20 @@
         background-color: @primary;
         color: white;
         height: 60px;
+        border-top: 15px @primaryDark solid;
+        &.sticky {
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
+            z-index: 100;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+            -webkit-box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+            -moz-box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+            // -moz-box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.06), 0 4px 5px 0 rgba(0, 0, 0, 0.06), 0 1px 10px 0 rgba(0, 0, 0, 0.08);
+            // box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.06), 0 4px 5px 0 rgba(0, 0, 0, 0.06), 0 1px 10px 0 rgba(0, 0, 0, 0.08);
+            // .sombra_hover();
+        }
         .toolbar-item-container {
             display: flex;
             flex-flow: row nowrap;
@@ -20,12 +34,13 @@
             margin: 0;
             height: 100%;
             list-style: none;
-            * {
+            & > a {
+                cursor: pointer;
                 color: white;
                 text-decoration: none;
             }
-            & > *:hover {
-                background: rgba(255, 255, 255, 0.6);
+            & > a:hover {
+                background: rgba(255, 255, 255, 0.2);
                 color: white;
             }
             .toolbar-item {

@@ -25,5 +25,8 @@
     "gulp-plumber": "^1.1.0",
     "gulp-sourcemaps": "^2.6.0",
     "gulp-uglify": "^2.1.2"
+  },
+  "dependencies": {
+    "gulp-compile-jsx": "^1.0.3"
   }
 }

@@ -7,21 +7,21 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Example MiniMaterial</title>
 
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-
-    <!-- <link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap.min.css"> -->
-
-    <link rel="stylesheet" href="angular-minimaterial.min.css">
+    <link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> -->
+    <link rel="stylesheet" href="../angular-minimaterial.min.css">
     <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
 </head>
 
 <body ng-app="mmAngualrTest" ng-cloak>
 
     <mm-layout>
-        <mm-toolbar title="Minimaterial">
-            <mm-toolbar-item href="hola1" icon="true">
+        <header>
+            <h1>Universidad Nacional de Ingeniería</h1>
+        </header>
+
+        <mm-toolbar title="Minimaterial" sticky="true">
+            <mm-toolbar-item icon="true">
                 <i class="material-icons">power_settings_new</i>
             </mm-toolbar-item>
             <mm-toolbar-item href="hola2">Menu 2</mm-toolbar-item>
@@ -99,6 +99,7 @@
                     Input1 Dice: {{input1}}
                     <br> Input2 Dice: {{input2}}
                 </p>
+                <input type="date">
 
                 <h3>&lt;mm-textarea> &lt;/mm-textarea></h3>
                 <mm-textarea ng-model="input3" placeholder="Descripción"></mm-textarea>
@@ -113,6 +114,14 @@
                 <h3>&lt;mm-switch> &lt;/mm-switch></h3>
                 <mm-switch ng-model="ckValue2" label="Mini Material Switch"></mm-switch>
 
+                <h3>mm-button</h3>
+                <mm-button>Default</mm-button>
+                <mm-button class="btn-primary">Primary</mm-button>
+                <mm-button class="btn-success">Success</mm-button>
+                <mm-button class="btn-info">Info</mm-button>
+                <mm-button class="btn-warning">Warning</mm-button>
+                <mm-button class="btn-danger">Error</mm-button>
+
                 <h3>$mmSnackbar</h3>
                 <mm-button ng-click="showSnackbar()" class="btn-success">Success</mm-button>
                 <mm-button ng-click="showInfo()" class="btn-info">Info</mm-button>
@@ -122,16 +131,16 @@
         </div>
     </div>
 
-    <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+    <!-- <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
         crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.0/angular.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.0/angular.min.js"></script> -->
 
-    <!-- <script src="../bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="../bower_components/jquery/dist/jquery.min.js"></script>
     <script src="../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-    <script src="../bower_components/angular/angular.min.js"></script> -->
+    <script src="../bower_components/angular/angular.min.js"></script>
 
-    <script src="angular-minimaterial.min.js"></script>
+    <script src="../angular-minimaterial.min.js"></script>
 
     <script>
         var app = angular.module('mmAngualrTest', ['ngMiniMaterial']);
@@ -163,7 +172,7 @@
                 { "id": 11, "nombre": "Alyce", "apellido": "Tinoco", "fecha": "2017-12-12" },
                 { "id": 12, "nombre": "Judith", "apellido": "Altamirano", "fecha": "2017-12-12" },
                 { "id": 13, "nombre": "Yader", "apellido": "Sunseri", "fecha": "2017-12-12" },
-            ]
+            ];
 
 
             $rootScope.showSnackbar = function () {

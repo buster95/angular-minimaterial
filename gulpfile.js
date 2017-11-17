@@ -8,24 +8,29 @@ var jsx = require('gulp-angular-jsx');
 var sourcemaps = require('gulp-sourcemaps');
 
 var dirjs = [
-    "src/componentes/minimaterial.js",
-    "src/componentes/**/*.js"
+    "src/extensiones.js",
+    "src/minimaterial.js",
+    "src/**/*.js"
 ];
 var cssdir = [
     // 'src/componentes/minimaterial-colors.less',
     // 'src/componentes/minimaterial-functions.less',
     // 'src/componentes/minimaterial.less',
-    'src/componentes/*.less',
-    'src/componentes/**/*.less'
+    'src/*.less',
+    'src/**/*.less'
 ];
-gulp.task('default', function () {
+gulp.task('default', () => {
     gulp.watch(dirjs, ['js_task']);
     gulp.watch(cssdir, ['css_task']);
 });
 
 gulp.task('js_task', function () {
     gulp.src(dirjs)
-        .pipe(plumber())
+        .pipe(plumber({
+            errorHandler: function (err) {
+                console.log(err);
+            }
+        }))
         .pipe(jsx())
         .pipe(concat('angular-minimaterial.js'))
         .pipe(gulp.dest('./'))
@@ -33,8 +38,7 @@ gulp.task('js_task', function () {
         .pipe(sourcemaps.init())
         .pipe(concat('angular-minimaterial.min.js'))
         .pipe(sourcemaps.write('./'))
-        .pipe(gulp.dest('./'))
-        .pipe(gulp.dest('./docs/'));
+        .pipe(gulp.dest('./'));
 });
 
 gulp.task('css_task', function () {
@@ -46,6 +50,5 @@ gulp.task('css_task', function () {
         .pipe(gulp.dest('./'))
         .pipe(cssmin())
         .pipe(concat('angular-minimaterial.min.css'))
-        .pipe(gulp.dest('./'))
-        .pipe(gulp.dest('./docs/'));
+        .pipe(gulp.dest('./'));
 });

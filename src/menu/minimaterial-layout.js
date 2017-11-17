@@ -1,7 +1,7 @@
 (function () {
     miniapp.directive('mmLayout', [function () {
         return {
-            priority: 10,
+            priority: 0,
             transclude: true,
             terminal: false,
             replace: true,

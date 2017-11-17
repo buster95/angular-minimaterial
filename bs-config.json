@@ -5,7 +5,8 @@
         "baseDir": "./docs",
         "routes": {
             "/bower_components": "bower_components",
-            "/src": "src"
+            "/src": "src",
+            "/": "./"
         }
     }
 }

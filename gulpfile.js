@@ -38,7 +38,8 @@ gulp.task('js_task', function () {
         .pipe(sourcemaps.init())
         .pipe(concat('angular-minimaterial.min.js'))
         .pipe(sourcemaps.write('./'))
-        .pipe(gulp.dest('./'));
+        .pipe(gulp.dest('./'))
+        .pipe(gulp.dest('./docs/'));
 });
 
 gulp.task('css_task', function () {
@@ -50,5 +51,6 @@ gulp.task('css_task', function () {
         .pipe(gulp.dest('./'))
         .pipe(cssmin())
         .pipe(concat('angular-minimaterial.min.css'))
-        .pipe(gulp.dest('./'));
+        .pipe(gulp.dest('./'))
+        .pipe(gulp.dest('./docs/'));
 });

@@ -116,59 +116,6 @@ body * {
   background: #C62828;
 }
 
-@import 'fonts/Roboto/roboto-font.css';
-@import 'fonts/Icons/material-icons.css';
-body {
-  -webkit-font-smoothing: antialiased;
-  background: #f5f5f5;
-  padding: 0px;
-}
-body * {
-  font-family: 'Roboto', sans-serif;
-}
-@keyframes ripple {
-  0% {
-    transform: scale(0, 0);
-    opacity: 1;
-  }
-  20% {
-    transform: scale(25, 25);
-    opacity: 1;
-  }
-  100% {
-    opacity: 0;
-    transform: scale(40, 40);
-  }
-}
-.ripple {
-  position: relative;
-  overflow: hidden;
-}
-.ripple:after {
-  content: '';
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 5px;
-  height: 5px;
-  background: rgba(255, 255, 255, 0.5);
-  opacity: 0;
-  border-radius: 100%;
-  transform: scale(1, 1) translate(-50%);
-  transform-origin: 50% 50%;
-}
-.ripple:focus:not(:active)::after {
-  animation: ripple 1s ease-out;
-}
-.panel {
-  -webkit-box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
-  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
-  border-radius: 2px;
-  margin-top: 20px;
-}
-.label-primary {
-  background-color: #1A237E;
-}
 .checkbox {
   cursor: pointer;
 }
@@ -213,187 +160,6 @@ body * {
   border: 2px solid #1A237E;
 }
 
-
-@import 'fonts/Roboto/roboto-font.css';
-@import 'fonts/Icons/material-icons.css';
-body {
-  -webkit-font-smoothing: antialiased;
-  background: #f5f5f5;
-  padding: 0px;
-}
-body * {
-  font-family: 'Roboto', sans-serif;
-}
-@keyframes ripple {
-  0% {
-    transform: scale(0, 0);
-    opacity: 1;
-  }
-  20% {
-    transform: scale(25, 25);
-    opacity: 1;
-  }
-  100% {
-    opacity: 0;
-    transform: scale(40, 40);
-  }
-}
-.ripple {
-  position: relative;
-  overflow: hidden;
-}
-.ripple:after {
-  content: '';
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 5px;
-  height: 5px;
-  background: rgba(255, 255, 255, 0.5);
-  opacity: 0;
-  border-radius: 100%;
-  transform: scale(1, 1) translate(-50%);
-  transform-origin: 50% 50%;
-}
-.ripple:focus:not(:active)::after {
-  animation: ripple 1s ease-out;
-}
-.panel {
-  -webkit-box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
-  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
-  border-radius: 2px;
-  margin-top: 20px;
-}
-.label-primary {
-  background-color: #1A237E;
-}
-.input-group {
-  padding-top: 15px;
-  width: 100%;
-}
-.input-group label {
-  color: #9e9e9e;
-  position: absolute;
-  margin: 0;
-  padding: 0;
-  left: 0;
-  bottom: 5px;
-  z-index: 10;
-  font-weight: normal;
-  font-size: 14px;
-  transition: 0.15s ease-out;
-}
-.input-group .form-control {
-  width: 100%;
-  border: none;
-  box-shadow: none;
-  border-radius: 0;
-  padding: 0;
-  background: transparent;
-  border-bottom: 1px solid #9e9e9e;
-}
-.input-group .form-control:focus {
-  border-bottom: 1px solid #1A237E;
-}
-.input-group .form-control:focus ~ label,
-.input-group .form-control:not([value=""]) ~ label {
-  font-size: 12px;
-  bottom: 35px;
-  color: #1A237E;
-}
-.input-group .form-control[readonly]:focus {
-  border-bottom: 1px solid #9e9e9e;
-}
-.input-group .form-control[readonly]:focus ~ label {
-  color: #9e9e9e;
-}
-.input-group .line {
-  background: #1A237E;
-  height: 2px;
-  position: absolute;
-  width: 100%;
-  left: 0px;
-  bottom: -1px;
-  transition: all 250ms ease 0s;
-  transform: scale(0);
-}
-.input-group .form-control:focus ~ .line,
-.input-group .form-control:not([value=""]) ~ .line {
-  transform: scale(1);
-}
-.input-group .form-control[readonly]:focus ~ line,
-.input-group .form-control:not([value=""]) ~ .line {
-  background: #9e9e9e;
-}
-.input-group textarea.form-control {
-  -webkit-box-sizing: border-box;
-  box-sizing: border-box;
-  padding-top: 0;
-  height: 30px;
-  resize: none;
-  overflow-y: hidden;
-}
-.input-group textarea.form-control ~ label {
-  top: 20px;
-}
-.input-group textarea.form-control:focus ~ label,
-.input-group textarea.form-control:not([value=""]) ~ label {
-  top: -8px;
-}
-
-@import 'fonts/Roboto/roboto-font.css';
-@import 'fonts/Icons/material-icons.css';
-body {
-  -webkit-font-smoothing: antialiased;
-  background: #f5f5f5;
-  padding: 0px;
-}
-body * {
-  font-family: 'Roboto', sans-serif;
-}
-@keyframes ripple {
-  0% {
-    transform: scale(0, 0);
-    opacity: 1;
-  }
-  20% {
-    transform: scale(25, 25);
-    opacity: 1;
-  }
-  100% {
-    opacity: 0;
-    transform: scale(40, 40);
-  }
-}
-.ripple {
-  position: relative;
-  overflow: hidden;
-}
-.ripple:after {
-  content: '';
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 5px;
-  height: 5px;
-  background: rgba(255, 255, 255, 0.5);
-  opacity: 0;
-  border-radius: 100%;
-  transform: scale(1, 1) translate(-50%);
-  transform-origin: 50% 50%;
-}
-.ripple:focus:not(:active)::after {
-  animation: ripple 1s ease-out;
-}
-.panel {
-  -webkit-box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
-  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
-  border-radius: 2px;
-  margin-top: 20px;
-}
-.label-primary {
-  background-color: #1A237E;
-}
 .spinner-container {
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -502,6 +268,81 @@ body * {
     transform: rotate(450deg);
   }
 }
+
+.input-group {
+  padding-top: 15px;
+  width: 100%;
+}
+.input-group label {
+  color: #9e9e9e;
+  position: absolute;
+  margin: 0;
+  padding: 0;
+  left: 0;
+  bottom: 5px;
+  z-index: 10;
+  font-weight: normal;
+  font-size: 14px;
+  transition: 0.15s ease-out;
+}
+.input-group .form-control {
+  width: 100%;
+  border: none;
+  box-shadow: none;
+  border-radius: 0;
+  padding: 0;
+  background: transparent;
+  border-bottom: 1px solid #9e9e9e;
+}
+.input-group .form-control:focus {
+  border-bottom: 1px solid #1A237E;
+}
+.input-group .form-control:focus ~ label,
+.input-group .form-control:not([value=""]) ~ label {
+  font-size: 12px;
+  bottom: 35px;
+  color: #1A237E;
+}
+.input-group .form-control[readonly]:focus {
+  border-bottom: 1px solid #9e9e9e;
+}
+.input-group .form-control[readonly]:focus ~ label {
+  color: #9e9e9e;
+}
+.input-group .line {
+  background: #1A237E;
+  height: 2px;
+  position: absolute;
+  width: 100%;
+  left: 0px;
+  bottom: -1px;
+  transition: all 250ms ease 0s;
+  transform: scale(0);
+}
+.input-group .form-control:focus ~ .line,
+.input-group .form-control:not([value=""]) ~ .line {
+  transform: scale(1);
+}
+.input-group .form-control[readonly]:focus ~ line,
+.input-group .form-control:not([value=""]) ~ .line {
+  background: #9e9e9e;
+}
+.input-group textarea.form-control {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  padding-top: 0;
+  height: 30px;
+  resize: none;
+  overflow-y: hidden;
+}
+.input-group textarea.form-control ~ label {
+  top: 20px;
+}
+.input-group textarea.form-control:focus ~ label,
+.input-group textarea.form-control:not([value=""]) ~ label {
+  top: -8px;
+}
+
 
 .layout .toolbar {
   box-sizing: unset;
@@ -736,59 +577,6 @@ body * {
   }
 }
 
-@import 'fonts/Roboto/roboto-font.css';
-@import 'fonts/Icons/material-icons.css';
-body {
-  -webkit-font-smoothing: antialiased;
-  background: #f5f5f5;
-  padding: 0px;
-}
-body * {
-  font-family: 'Roboto', sans-serif;
-}
-@keyframes ripple {
-  0% {
-    transform: scale(0, 0);
-    opacity: 1;
-  }
-  20% {
-    transform: scale(25, 25);
-    opacity: 1;
-  }
-  100% {
-    opacity: 0;
-    transform: scale(40, 40);
-  }
-}
-.ripple {
-  position: relative;
-  overflow: hidden;
-}
-.ripple:after {
-  content: '';
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 5px;
-  height: 5px;
-  background: rgba(255, 255, 255, 0.5);
-  opacity: 0;
-  border-radius: 100%;
-  transform: scale(1, 1) translate(-50%);
-  transform-origin: 50% 50%;
-}
-.ripple:focus:not(:active)::after {
-  animation: ripple 1s ease-out;
-}
-.panel {
-  -webkit-box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
-  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
-  border-radius: 2px;
-  margin-top: 20px;
-}
-.label-primary {
-  background-color: #1A237E;
-}
 .pagination-panel {
   position: relative;
   display: inline-block;
@@ -828,59 +616,6 @@ body * {
   cursor: not-allowed;
 }
 
-@import 'fonts/Roboto/roboto-font.css';
-@import 'fonts/Icons/material-icons.css';
-body {
-  -webkit-font-smoothing: antialiased;
-  background: #f5f5f5;
-  padding: 0px;
-}
-body * {
-  font-family: 'Roboto', sans-serif;
-}
-@keyframes ripple {
-  0% {
-    transform: scale(0, 0);
-    opacity: 1;
-  }
-  20% {
-    transform: scale(25, 25);
-    opacity: 1;
-  }
-  100% {
-    opacity: 0;
-    transform: scale(40, 40);
-  }
-}
-.ripple {
-  position: relative;
-  overflow: hidden;
-}
-.ripple:after {
-  content: '';
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 5px;
-  height: 5px;
-  background: rgba(255, 255, 255, 0.5);
-  opacity: 0;
-  border-radius: 100%;
-  transform: scale(1, 1) translate(-50%);
-  transform-origin: 50% 50%;
-}
-.ripple:focus:not(:active)::after {
-  animation: ripple 1s ease-out;
-}
-.panel {
-  -webkit-box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
-  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
-  border-radius: 2px;
-  margin-top: 20px;
-}
-.label-primary {
-  background-color: #1A237E;
-}
 .mmswitch-container {
   margin-bottom: 15px;
 }
@@ -931,59 +666,55 @@ body * {
   left: 20px;
 }
 
-@import 'fonts/Roboto/roboto-font.css';
-@import 'fonts/Icons/material-icons.css';
-body {
-  -webkit-font-smoothing: antialiased;
-  background: #f5f5f5;
-  padding: 0px;
+.nav-tabs {
+  border-bottom: 2px solid #DDD;
 }
-body * {
-  font-family: 'Roboto', sans-serif;
+.nav-tabs > li.active > a,
+.nav-tabs > li.active > a:focus,
+.nav-tabs > li.active > a:hover {
+  border-width: 0;
 }
-@keyframes ripple {
-  0% {
-    transform: scale(0, 0);
-    opacity: 1;
-  }
-  20% {
-    transform: scale(25, 25);
-    opacity: 1;
-  }
-  100% {
-    opacity: 0;
-    transform: scale(40, 40);
-  }
+.nav-tabs > li > a {
+  border: none;
+  color: #666;
 }
-.ripple {
-  position: relative;
-  overflow: hidden;
+.nav-tabs > li.active > a,
+.nav-tabs > li > a:hover {
+  border: none;
+  color: #4285F4 !important;
+  background: transparent;
 }
-.ripple:after {
-  content: '';
+.nav-tabs > li > a::after {
+  content: "";
+  background: #4285F4;
+  height: 2px;
   position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 5px;
-  height: 5px;
-  background: rgba(255, 255, 255, 0.5);
-  opacity: 0;
-  border-radius: 100%;
-  transform: scale(1, 1) translate(-50%);
-  transform-origin: 50% 50%;
+  width: 100%;
+  left: 0px;
+  bottom: -1px;
+  transition: all 250ms ease 0s;
+  transform: scale(0);
 }
-.ripple:focus:not(:active)::after {
-  animation: ripple 1s ease-out;
+.nav-tabs > li.active > a::after,
+.nav-tabs > li:hover > a::after {
+  transform: scale(1);
 }
-.panel {
-  -webkit-box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
-  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
-  border-radius: 2px;
-  margin-top: 20px;
+.tab-nav > li > a::after {
+  background: #21527d none repeat scroll 0% 0%;
+  color: #fff;
 }
-.label-primary {
-  background-color: #1A237E;
+.tab-pane {
+  padding: 15px 0;
 }
+.tab-content {
+  padding: 5px;
+}
+.card {
+  background: #FFF none repeat scroll 0% 0%;
+  box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.3);
+  margin-bottom: 30px;
+}
+
 .snackbar-wrapper {
   position: fixed;
   bottom: 30px;
@@ -1061,106 +792,4 @@ However, delay the fade out process for 2.5 seconds */
     margin-bottom: -100px;
     opacity: 0;
   }
-}
-
-@import 'fonts/Roboto/roboto-font.css';
-@import 'fonts/Icons/material-icons.css';
-body {
-  -webkit-font-smoothing: antialiased;
-  background: #f5f5f5;
-  padding: 0px;
-}
-body * {
-  font-family: 'Roboto', sans-serif;
-}
-@keyframes ripple {
-  0% {
-    transform: scale(0, 0);
-    opacity: 1;
-  }
-  20% {
-    transform: scale(25, 25);
-    opacity: 1;
-  }
-  100% {
-    opacity: 0;
-    transform: scale(40, 40);
-  }
-}
-.ripple {
-  position: relative;
-  overflow: hidden;
-}
-.ripple:after {
-  content: '';
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 5px;
-  height: 5px;
-  background: rgba(255, 255, 255, 0.5);
-  opacity: 0;
-  border-radius: 100%;
-  transform: scale(1, 1) translate(-50%);
-  transform-origin: 50% 50%;
-}
-.ripple:focus:not(:active)::after {
-  animation: ripple 1s ease-out;
-}
-.panel {
-  -webkit-box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
-  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
-  border-radius: 2px;
-  margin-top: 20px;
-}
-.label-primary {
-  background-color: #1A237E;
-}
-.nav-tabs {
-  border-bottom: 2px solid #DDD;
-}
-.nav-tabs > li.active > a,
-.nav-tabs > li.active > a:focus,
-.nav-tabs > li.active > a:hover {
-  border-width: 0;
-}
-.nav-tabs > li > a {
-  border: none;
-  color: #666;
-}
-.nav-tabs > li.active > a,
-.nav-tabs > li > a:hover {
-  border: none;
-  color: #4285F4 !important;
-  background: transparent;
-}
-.nav-tabs > li > a::after {
-  content: "";
-  background: #4285F4;
-  height: 2px;
-  position: absolute;
-  width: 100%;
-  left: 0px;
-  bottom: -1px;
-  transition: all 250ms ease 0s;
-  transform: scale(0);
-}
-.nav-tabs > li.active > a::after,
-.nav-tabs > li:hover > a::after {
-  transform: scale(1);
-}
-.tab-nav > li > a::after {
-  background: #21527d none repeat scroll 0% 0%;
-  color: #fff;
-}
-.tab-pane {
-  padding: 15px 0;
-}
-.tab-content {
-  padding: 5px;
-}
-.card {
-  background: #FFF none repeat scroll 0% 0%;
-  box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.3);
-  margin-bottom: 30px;
 }

@@ -474,17 +474,22 @@ function toggleActive(el) {
                 return function Link(scope, element, attrs) {
                     var elemento = element[0];
                     var sticky = Boolean.Convert(tAttrs.sticky);
-                    var elpos = elemento.offsetTop;
+                    var elPos = elemento.offsetTop;
                     var elHeight = elemento.offsetHeight;
 
+                    if (elPos == 0) {
+                        element.addClass('sticky');
+                        angular.element(document.body).css('padding-top', elHeight + 'px');
+                    }
+
                     console.log(elemento);
-                    if (sticky === true) {
+                    if (sticky === true && elPos > 0) {
                         window.onresize = function (e) {
-                            elpos = elemento.offsetTop;
+                            elPos = elemento.offsetTop;
                         }
                         window.onscroll = function (evt) {
                             var scroll = evt.pageY;
-                            if (scroll >= elpos) {
+                            if (scroll >= elPos) {
                                 element.addClass('sticky');
                                 angular.element(document.body).css('padding-top', elHeight + 'px');
                             } else {

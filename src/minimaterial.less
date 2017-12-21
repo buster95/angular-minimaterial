@@ -2,7 +2,6 @@
 @import './minimaterial-functions.less';
 @import 'fonts/Roboto/roboto-font.css';
 @import 'fonts/Icons/material-icons.css';
-
 body {
     -webkit-font-smoothing: antialiased;
     background: @background;
@@ -56,7 +55,6 @@ body {
 .ripple {
     position: relative;
     overflow: hidden;
-    
     &:after {
         content: '';
         position: absolute;
@@ -75,12 +73,12 @@ body {
     }
 }
 
-.panel {
-    .sombra();
-    border-radius: 2px;
-    margin-top: 20px;
-}
-
 .label-primary {
     background-color: @color_primary;
+}
+
+// TABLAS
+.table > thead {
+    background: @primary;
+    color: white;
 }

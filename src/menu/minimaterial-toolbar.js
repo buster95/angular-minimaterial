@@ -21,7 +21,7 @@ function toggleActive(el) {
                     var elPos = elemento.offsetTop;
                     var elHeight = elemento.offsetHeight;
 
-                    if (elPos == 0) {
+                    if (elPos == 0 && sticky == true) {
                         element.addClass('sticky');
                         angular.element(document.body).css('padding-top', elHeight + 'px');
                     }
@@ -44,6 +44,9 @@ function toggleActive(el) {
                             // console.log(evt.pageY);
                             // console.log(elpos);
                         };
+                    } else if (elPos == 0 && sticky == true) {
+                        element.addClass('sticky');
+                        angular.element(document.body).css('padding-top', elHeight + 'px');
                     }
                 }
             },

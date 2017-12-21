@@ -1,5 +1,6 @@
 @import "../minimaterial-functions.less";
 @import "../minimaterial-colors.less";
+@animationTime: 0.5s;
 .layout {
     .toolbar {
         box-sizing: unset;
@@ -82,36 +83,36 @@
                     height: 4px;
                 }
                 i:nth-child(1) {
-                    -webkit-animation: outT 0.8s backwards;
-                    animation: outT 0.8s backwards;
+                    -webkit-animation: outT @animationTime backwards;
+                    animation: outT @animationTime backwards;
                     -webkit-animation-direction: reverse;
                     animation-direction: reverse;
                 }
                 i:nth-child(2) {
                     margin: 5px 0;
-                    -webkit-animation: outM 0.8s backwards;
-                    animation: outM 0.8s backwards;
+                    -webkit-animation: outM @animationTime backwards;
+                    animation: outM @animationTime backwards;
                     -webkit-animation-direction: reverse;
                     animation-direction: reverse;
                 }
                 i:nth-child(3) {
-                    -webkit-animation: outBtm 0.8s backwards;
-                    animation: outBtm 0.8s backwards;
+                    -webkit-animation: outBtm @animationTime backwards;
+                    animation: outBtm @animationTime backwards;
                     -webkit-animation-direction: reverse;
                     animation-direction: reverse;
                 }
                 &.active {
                     i:nth-child(1) {
-                        -webkit-animation: inT 0.8s forwards;
-                        animation: inT 0.8s forwards;
+                        -webkit-animation: inT @animationTime forwards;
+                        animation: inT @animationTime forwards;
                     }
                     i:nth-child(2) {
-                        -webkit-animation: inM 0.8s forwards;
-                        animation: inM 0.8s forwards;
+                        -webkit-animation: inM @animationTime forwards;
+                        animation: inM @animationTime forwards;
                     }
                     i:nth-child(3) {
-                        -webkit-animation: inBtm 0.8s forwards;
-                        animation: inBtm 0.8s forwards;
+                        -webkit-animation: inBtm @animationTime forwards;
+                        animation: inBtm @animationTime forwards;
                     }
                 }
             }

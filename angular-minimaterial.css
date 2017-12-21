@@ -44,14 +44,12 @@ body * {
 .ripple:focus:not(:active)::after {
   animation: ripple 1s ease-out;
 }
-.panel {
-  -webkit-box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
-  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
-  border-radius: 2px;
-  margin-top: 20px;
-}
 .label-primary {
   background-color: #1A237E;
+}
+.table > thead {
+  background: #283593;
+  color: white;
 }
 
 .btn {
@@ -113,6 +111,45 @@ body * {
 }
 .btn-danger:hover {
   background: #C62828;
+}
+
+.panel {
+  -webkit-box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
+  border: none;
+  border-radius: 2px;
+  margin-top: 20px;
+  overflow: hidden;
+}
+.panel .panel-heading {
+  border-radius: 0;
+}
+.panel.panel-primary .panel-heading {
+  background: #283593;
+  color: white;
+}
+.panel.panel-info .panel-heading {
+  background: #2196F3;
+  color: white;
+}
+.panel.panel-success .panel-heading {
+  background: #4CAF50;
+  color: white;
+}
+.panel.panel-warning .panel-heading {
+  background: #FF5722;
+  color: white;
+}
+.panel.panel-danger .panel-heading {
+  background: #C62828;
+  color: white;
+}
+.modal-content {
+  border-radius: 2px;
+}
+.modal-content .modal-header {
+  background: #283593;
+  color: white;
 }
 
 .checkbox {
@@ -422,35 +459,35 @@ body * {
   height: 4px;
 }
 .layout .toolbar .toolbar-title .toolbar-hamburguer i:nth-child(1) {
-  -webkit-animation: outT 0.8s backwards;
-  animation: outT 0.8s backwards;
+  -webkit-animation: outT 0.5s backwards;
+  animation: outT 0.5s backwards;
   -webkit-animation-direction: reverse;
   animation-direction: reverse;
 }
 .layout .toolbar .toolbar-title .toolbar-hamburguer i:nth-child(2) {
   margin: 5px 0;
-  -webkit-animation: outM 0.8s backwards;
-  animation: outM 0.8s backwards;
+  -webkit-animation: outM 0.5s backwards;
+  animation: outM 0.5s backwards;
   -webkit-animation-direction: reverse;
   animation-direction: reverse;
 }
 .layout .toolbar .toolbar-title .toolbar-hamburguer i:nth-child(3) {
-  -webkit-animation: outBtm 0.8s backwards;
-  animation: outBtm 0.8s backwards;
+  -webkit-animation: outBtm 0.5s backwards;
+  animation: outBtm 0.5s backwards;
   -webkit-animation-direction: reverse;
   animation-direction: reverse;
 }
 .layout .toolbar .toolbar-title .toolbar-hamburguer.active i:nth-child(1) {
-  -webkit-animation: inT 0.8s forwards;
-  animation: inT 0.8s forwards;
+  -webkit-animation: inT 0.5s forwards;
+  animation: inT 0.5s forwards;
 }
 .layout .toolbar .toolbar-title .toolbar-hamburguer.active i:nth-child(2) {
-  -webkit-animation: inM 0.8s forwards;
-  animation: inM 0.8s forwards;
+  -webkit-animation: inM 0.5s forwards;
+  animation: inM 0.5s forwards;
 }
 .layout .toolbar .toolbar-title .toolbar-hamburguer.active i:nth-child(3) {
-  -webkit-animation: inBtm 0.8s forwards;
-  animation: inBtm 0.8s forwards;
+  -webkit-animation: inBtm 0.5s forwards;
+  animation: inBtm 0.5s forwards;
 }
 .layout .toolbar .toolbar-title span {
   margin-left: 20px;

@@ -1,0 +1,40 @@
+@import "../minimaterial-colors.less";
+@import "../minimaterial-functions.less";
+.panel {
+    .sombra();
+    border: none;
+    border-radius: 2px;
+    margin-top: 20px;
+    overflow: hidden;
+    .panel-heading {
+        border-radius: 0;
+    }
+    &.panel-primary .panel-heading {
+        background: @primary;
+        color: white;
+    }
+    &.panel-info .panel-heading {
+        background: @info;
+        color: white;
+    }
+    &.panel-success .panel-heading {
+        background: @success;
+        color: white;
+    }
+    &.panel-warning .panel-heading {
+        background: @warning;
+        color: white;
+    }
+    &.panel-danger .panel-heading {
+        background: @danger;
+        color: white;
+    }
+}
+
+.modal-content {
+    border-radius: 2px;
+    .modal-header {
+        background: @primary;
+        color: white;
+    }
+}
